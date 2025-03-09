@@ -7,7 +7,7 @@
 
 可视化分析Angular构建过程中的内存使用情况和耗时趋势，帮助开发者优化构建性能。
 
-![Demo Screenshot](./screenshot.png) <!-- 建议添加实际截图 -->
+![Demo Screenshot](https://github.com/baobaodz/picx-images-hosting/raw/master/memory-analytics/1741522423150.58hiolapmj.webp) 
 
 ## 主要特性 ✨
 
@@ -26,7 +26,7 @@
 ## 快速开始 🚀
 
 ### 在线使用
-1. 访问[在线演示](https://your-demo-url.com)
+1. 访问[在线演示](https://angular-build-memory-analytics.glitch.me)
 2. 点击"下载示例文件"获取测试数据
 3. 选择并上传`JSON`文件
 
@@ -34,7 +34,7 @@
 ```bash
 git clone https://github.com/yourusername/angular-build-memory-analytics.git
 cd angular-build-memory-analytics
-# 使用Live Server等本地服务器打开index.html
+# 浏览器打开index.html
 ```
 
 ## 数据格式规范 📄
