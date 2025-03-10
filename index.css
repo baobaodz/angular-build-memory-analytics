@@ -25,31 +25,31 @@ to this section's matching END comment to see page-specific styles.
     --image-margin: 3rem;
     --font-family: "HK Grotesk";
     --font-family-header: "HK Grotesk";
-  }
-  
-  /* Basic page style resets */
-  * {
+}
+
+/* Basic page style resets */
+* {
     box-sizing: border-box;
-  }
-  [hidden] {
+}
+
+[hidden] {
     display: none !important;
-  }
-  
-  /* Import fonts */
-  @font-face {
+}
+
+/* Import fonts */
+@font-face {
     font-family: HK Grotesk;
-    src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Regular.otf?v=1603136326027")
-      format("opentype");
-  }
-  @font-face {
+    src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Regular.otf?v=1603136326027") format("opentype");
+}
+
+@font-face {
     font-family: HK Grotesk;
     font-weight: bold;
-    src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Bold.otf?v=1603136323437")
-      format("opentype");
-  }
-  
-  /* Our remix on glitch button */
-  .btn--remix {
+    src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Bold.otf?v=1603136323437") format("opentype");
+}
+
+/* Our remix on glitch button */
+.btn--remix {
     font-family: HK Grotesk;
     font-size: 0.8rem;
     font-weight: 500;
@@ -62,16 +62,18 @@ to this section's matching END comment to see page-specific styles.
     text-decoration: none;
     color: #000;
     white-space: nowrap;
-  }
-  .btn--remix img {
+}
+
+.btn--remix img {
     margin-right: 0.5rem;
-  }
-  .btn--remix:hover {
+}
+
+.btn--remix:hover {
     background-color: #D0FFF1;
-  }
-  
-  /* Navigation grid */
-  .footer {
+}
+
+/* Navigation grid */
+.footer {
     display: flex;
     justify-content: space-between;
     margin: 1rem auto 0;
@@ -79,10 +81,10 @@ to this section's matching END comment to see page-specific styles.
     width: 100%;
     flex-wrap: wrap;
     border-top: 4px solid #fff;
-  }
-  
-  .footer a:not(.btn--remix):link,
-  a:not(.btn--remix):visited {
+}
+
+.footer a:not(.btn--remix):link,
+a:not(.btn--remix):visited {
     font-family: HK Grotesk;
     font-style: normal;
     font-weight: normal;
@@ -90,43 +92,46 @@ to this section's matching END comment to see page-specific styles.
     color: #000;
     text-decoration: none;
     border-style: none;
-  }
-  .footer a:hover {
+}
+
+.footer a:hover {
     background: var(--color-primary);
-  }
-  
-  .footer .links {
+}
+
+.footer .links {
     padding: 0.5rem 1rem 1.5rem;
     white-space: nowrap;
-  }
-  
-  .divider {
+}
+
+.divider {
     padding: 0 1rem;
-  }
-  /******************************************************************************
+}
+
+/******************************************************************************
   END Glitch hello-app default styles
   ******************************************************************************/
-  
-  body {
+
+body {
     font-family: HK Grotesk;
-  }
-  
-  /* Page structure */
-  .wrapper {
+}
+
+/* Page structure */
+.wrapper {
     min-height: var(--wrapper-height);
     display: grid;
     place-items: center;
     margin: 0 1rem;
-  }
-  .content {
+}
+
+.content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  
-  /* Very light scaling for our illustration */
-  .title {
+}
+
+/* Very light scaling for our illustration */
+.title {
     color: var(--color-text-header);
     font-family: HK Grotesk;
     font-style: normal;
@@ -134,23 +139,23 @@ to this section's matching END comment to see page-specific styles.
     font-size: 100px;
     line-height: 105%;
     margin: 0;
-  }
-  
-  /* Very light scaling for our illustration */
-  .illustration {
+}
+
+/* Very light scaling for our illustration */
+.illustration {
     max-width: 100%;
     max-height: var(--image-max-width);
     margin-top: var(--image-margin);
-  }
-  
-  /* Instructions */
-  .instructions {
+}
+
+/* Instructions */
+.instructions {
     margin: 1rem auto 0;
-  }
-  
-  /* Button - Add it from the README instructions */
-  button,
-  input {
+}
+
+/* Button - Add it from the README instructions */
+button,
+input {
     font-family: inherit;
     font-size: 100%;
     background: #FFFFFF;
@@ -159,37 +164,38 @@ to this section's matching END comment to see page-specific styles.
     border-radius: 4px;
     padding: 0.5rem 1rem;
     transition: 500ms;
-  }
-  
-  /* Subheading */
-  h2 {
+}
+
+/* Subheading */
+h2 {
     color: var(--color-text-header);
-  }
-  
-  /* Interactive image */
-  .illustration:active {
+}
+
+/* Interactive image */
+.illustration:active {
     transform: translateY(5px);
-  }
-  
-  /* Button dip
+}
+
+/* Button dip
   - Toggling this class on and off will move it down and up again
   - The button transition property above determines the speed of the translate (500ms)
   */
-  .dipped {
+.dipped {
     transform: translateY(5px);
-  }
-  
-  /* Links that open files in the editor */
-  .fileopener {
-    cursor:pointer;
-    font-weight:bold;
-    border-bottom:3px solid var(--color-primary);
+}
+
+/* Links that open files in the editor */
+.fileopener {
+    cursor: pointer;
+    font-weight: bold;
+    border-bottom: 3px solid var(--color-primary);
     color: var(--color-secondary);
-  }
-  .fileopener:hover {
-    border-bottom:3px solid var(--color-secondary);
-  }
-  
+}
+
+.fileopener:hover {
+    border-bottom: 3px solid var(--color-secondary);
+}
+
 
 
 
@@ -268,4 +274,70 @@ button {
     padding: 15px;
     background: #f8f9fa;
     border-left: 4px solid #4CAF50;
+}
+
+.config-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1)
+}
+
+.config-subtitle {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.config-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.config-item {
+    padding: 6px 12px;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.config-value-true {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.config-value-false {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.hover-config-tip {
+    padding: 0 25px;
+    border-radius: 6px;
+    display: none;
+}
+
+.hover-config-tip.active {
+    display: block;
+}
+
+.config-changed {
+    background: #fff3cd;
+    animation: highlight 1s ease-in-out;
+}
+
+@keyframes highlight {
+    0% {
+        background-color: #fff3cd;
+    }
+
+    50% {
+        background-color: #ffe69c;
+    }
+
+    100% {
+        background-color: #fff3cd;
+    }
 }

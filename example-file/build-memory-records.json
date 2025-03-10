@@ -1,266 +1,610 @@
 [
   {
-    "timestamp": "2025-2-27 7:09:57",
-    "totalTime": "3min 10s",
+    "timestamp": "2025-03-10 16:48:01",
+    "totalTime": "3min 24s",
+    "status": "success",
     "data": [
       {
         "阶段": "编译",
-        "阶段耗时": "47s",
-        "RSS峰值 (MB)": 933,
-        "Heap总峰值 (MB)": 846,
-        "Heap已用峰值 (MB)": 811,
-        "内存使用率峰值": "5.73%",
-        "Heap使用率峰值": "95.85%"
+        "阶段耗时": "40s",
+        "RSS峰值 (MB)": 983,
+        "Heap总峰值 (MB)": 899,
+        "Heap已用峰值 (MB)": 861,
+        "内存使用率峰值": "6.04%",
+        "Heap使用率峰值": "95.73%"
       },
       {
         "阶段": "优化&打包",
-        "阶段耗时": "2min 17s",
-        "RSS峰值 (MB)": 2951,
-        "Heap总峰值 (MB)": 2186,
-        "Heap已用峰值 (MB)": 2096,
-        "内存使用率峰值": "18.13%",
-        "Heap使用率峰值": "95.86%"
+        "阶段耗时": "2min 33s",
+        "RSS峰值 (MB)": 2886,
+        "Heap总峰值 (MB)": 2674,
+        "Heap已用峰值 (MB)": 2586,
+        "内存使用率峰值": "17.73%",
+        "Heap使用率峰值": "96.71%"
       }
-    ]
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ],
+      "configuration": 1
+    },
+    "cliArguments": {
+      "configuration": true,
+      "optimization": "false"
+    }
   },
   {
-    "timestamp": "2025-2-28 10:11:48",
-    "totalTime": "3min 55s",
-    "data": [
-      {
-        "阶段": "编译",
-        "阶段耗时": "36s",
-        "RSS峰值 (MB)": 948,
-        "Heap总峰值 (MB)": 852,
-        "Heap已用峰值 (MB)": 818,
-        "内存使用率峰值": "5.82%",
-        "Heap使用率峰值": "95.98%"
-      },
-      {
-        "阶段": "优化&打包",
-        "阶段耗时": "3min 10s",
-        "RSS峰值 (MB)": 3235,
-        "Heap总峰值 (MB)": 2409,
-        "Heap已用峰值 (MB)": 2299,
-        "内存使用率峰值": "19.88%",
-        "Heap使用率峰值": "95.41%"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-2-28 10:18:33",
-    "totalTime": "3min 3s",
-    "data": [
-      {
-        "阶段": "编译",
-        "阶段耗时": "53s",
-        "RSS峰值 (MB)": 940,
-        "Heap总峰值 (MB)": 844,
-        "Heap已用峰值 (MB)": 811,
-        "内存使用率峰值": "5.77%",
-        "Heap使用率峰值": "96.04%"
-      },
-      {
-        "阶段": "优化&打包",
-        "阶段耗时": "2min 6s",
-        "RSS峰值 (MB)": 2798,
-        "Heap总峰值 (MB)": 2028,
-        "Heap已用峰值 (MB)": 1947,
-        "内存使用率峰值": "17.19%",
-        "Heap使用率峰值": "96.01%"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-2-28 12:03:09",
-    "totalTime": "2min 60s",
-    "data": [
-      {
-        "阶段": "编译",
-        "阶段耗时": "1min 6s",
-        "RSS峰值 (MB)": 909,
-        "Heap总峰值 (MB)": 818,
-        "Heap已用峰值 (MB)": 779,
-        "内存使用率峰值": "5.59%",
-        "Heap使用率峰值": "95.29%"
-      },
-      {
-        "阶段": "优化&打包",
-        "阶段耗时": "1min 47s",
-        "RSS峰值 (MB)": 3110,
-        "Heap总峰值 (MB)": 2342,
-        "Heap已用峰值 (MB)": 2273,
-        "内存使用率峰值": "19.11%",
-        "Heap使用率峰值": "97.07%"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-2-28 14:05:30",
-    "totalTime": "2min 43s",
+    "timestamp": "2025-03-10 18:06:52",
+    "totalTime": "1min 49s",
+    "status": "success",
     "data": [
       {
         "阶段": "编译",
         "阶段耗时": "42s",
-        "RSS峰值 (MB)": 3329,
-        "Heap总峰值 (MB)": 2353,
-        "Heap已用峰值 (MB)": 2243,
-        "内存使用率峰值": "20.46%",
-        "Heap使用率峰值": "95.33%"
+        "RSS峰值 (MB)": 1033,
+        "Heap总峰值 (MB)": 916,
+        "Heap已用峰值 (MB)": 872,
+        "内存使用率峰值": "6.35%",
+        "Heap使用率峰值": "95.22%"
       },
       {
         "阶段": "优化&打包",
-        "阶段耗时": "1min 53s",
-        "RSS峰值 (MB)": 3329,
-        "Heap总峰值 (MB)": 2353,
-        "Heap已用峰值 (MB)": 2243,
-        "内存使用率峰值": "20.46%",
-        "Heap使用率峰值": "95.33%"
+        "阶段耗时": "1min 8s",
+        "RSS峰值 (MB)": 3030,
+        "Heap总峰值 (MB)": 2175,
+        "Heap已用峰值 (MB)": 2097,
+        "内存使用率峰值": "18.62%",
+        "Heap使用率峰值": "96.39%"
       }
-    ]
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ],
+      "configuration": "production"
+    },
+    "cliArguments": {
+      "configuration": "production",
+      "optimization": "false"
+    }
   },
   {
-    "timestamp": "2025-2-28 14:55:50",
-    "totalTime": "2min 51s",
+    "timestamp": "2025-03-10 18:14:09",
+    "totalTime": "1min 39s",
+    "status": "success",
     "data": [
       {
         "阶段": "编译",
-        "阶段耗时": "58s",
-        "RSS峰值 (MB)": 1232,
-        "Heap总峰值 (MB)": 996,
-        "Heap已用峰值 (MB)": 948,
-        "内存使用率峰值": "7.57%",
-        "Heap使用率峰值": "95.12%"
+        "阶段耗时": "25s",
+        "RSS峰值 (MB)": 1031,
+        "Heap总峰值 (MB)": 914,
+        "Heap已用峰值 (MB)": 870,
+        "内存使用率峰值": "6.33%",
+        "Heap使用率峰值": "95.23%"
       },
       {
         "阶段": "优化&打包",
-        "阶段耗时": "1min 53s",
-        "RSS峰值 (MB)": 2826,
-        "Heap总峰值 (MB)": 2271,
-        "Heap已用峰值 (MB)": 2199,
-        "内存使用率峰值": "17.37%",
-        "Heap使用率峰值": "96.82%"
+        "阶段耗时": "1min 14s",
+        "RSS峰值 (MB)": 3050,
+        "Heap总峰值 (MB)": 2201,
+        "Heap已用峰值 (MB)": 2142,
+        "内存使用率峰值": "18.74%",
+        "Heap使用率峰值": "97.32%"
       }
-    ]
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production",
+      "optimization": "false"
+    }
   },
   {
-    "timestamp": "2025-2-28 15:59:57",
-    "totalTime": "2min 48s",
+    "timestamp": "2025-03-10 18:57:38",
+    "totalTime": "2min 3s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "48s",
+        "RSS峰值 (MB)": 969,
+        "Heap总峰值 (MB)": 876,
+        "Heap已用峰值 (MB)": 835,
+        "内存使用率峰值": "5.95%",
+        "Heap使用率峰值": "95.35%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "1min 15s",
+        "RSS峰值 (MB)": 3028,
+        "Heap总峰值 (MB)": 2204,
+        "Heap已用峰值 (MB)": 2141,
+        "内存使用率峰值": "18.61%",
+        "Heap使用率峰值": "97.15%"
+      }
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production",
+      "optimization": "false"
+    }
+  },
+  {
+    "timestamp": "2025-03-10 19:03:36",
+    "totalTime": "1min 56s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "50s",
+        "RSS峰值 (MB)": 1000,
+        "Heap总峰值 (MB)": 892,
+        "Heap已用峰值 (MB)": 851,
+        "内存使用率峰值": "6.15%",
+        "Heap使用率峰值": "95.42%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "1min 5s",
+        "RSS峰值 (MB)": 3034,
+        "Heap总峰值 (MB)": 2175,
+        "Heap已用峰值 (MB)": 2098,
+        "内存使用率峰值": "18.64%",
+        "Heap使用率峰值": "96.45%"
+      }
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production",
+      "optimization": "false"
+    }
+  },
+  {
+    "timestamp": "2025-03-10 19:07:36",
+    "totalTime": "2min 30s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "49s",
+        "RSS峰值 (MB)": 1024,
+        "Heap总峰值 (MB)": 911,
+        "Heap已用峰值 (MB)": 868,
+        "内存使用率峰值": "6.29%",
+        "Heap使用率峰值": "95.23%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "1min 40s",
+        "RSS峰值 (MB)": 3016,
+        "Heap总峰值 (MB)": 2201,
+        "Heap已用峰值 (MB)": 2139,
+        "内存使用率峰值": "18.54%",
+        "Heap使用率峰值": "97.18%"
+      }
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production",
+      "optimization": "false"
+    }
+  },
+  {
+    "timestamp": "2025-03-10 19:11:39",
+    "totalTime": "2min 34s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "37s",
+        "RSS峰值 (MB)": 1009,
+        "Heap总峰值 (MB)": 903,
+        "Heap已用峰值 (MB)": 868,
+        "内存使用率峰值": "6.20%",
+        "Heap使用率峰值": "96.07%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "1min 57s",
+        "RSS峰值 (MB)": 3201,
+        "Heap总峰值 (MB)": 2849,
+        "Heap已用峰值 (MB)": 2779,
+        "内存使用率峰值": "19.67%",
+        "Heap使用率峰值": "97.54%"
+      }
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": true,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
+  },
+  {
+    "timestamp": "2025-03-10 19:16:07",
+    "totalTime": "2min 6s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "43s",
+        "RSS峰值 (MB)": 971,
+        "Heap总峰值 (MB)": 869,
+        "Heap已用峰值 (MB)": 825,
+        "内存使用率峰值": "5.97%",
+        "Heap使用率峰值": "95.02%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "1min 23s",
+        "RSS峰值 (MB)": 3246,
+        "Heap总峰值 (MB)": 2491,
+        "Heap已用峰值 (MB)": 2425,
+        "内存使用率峰值": "19.95%",
+        "Heap使用率峰值": "97.36%"
+      }
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": true,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
+  },
+  {
+    "timestamp": "2025-03-10 19:19:27",
+    "totalTime": "1min 50s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "25s",
+        "RSS峰值 (MB)": 950,
+        "Heap总峰值 (MB)": 861,
+        "Heap已用峰值 (MB)": 788,
+        "内存使用率峰值": "5.84%",
+        "Heap使用率峰值": "91.51%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "1min 24s",
+        "RSS峰值 (MB)": 3205,
+        "Heap总峰值 (MB)": 2450,
+        "Heap已用峰值 (MB)": 2382,
+        "内存使用率峰值": "19.69%",
+        "Heap使用率峰值": "97.22%"
+      }
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": true,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
+  },
+  {
+    "timestamp": "2025-03-10 19:24:53",
+    "totalTime": "1min 48s",
+    "status": "success",
     "data": [
       {
         "阶段": "编译",
         "阶段耗时": "30s",
-        "RSS峰值 (MB)": 1233,
-        "Heap总峰值 (MB)": 998,
-        "Heap已用峰值 (MB)": 950,
-        "内存使用率峰值": "7.57%",
-        "Heap使用率峰值": "95.17%"
+        "RSS峰值 (MB)": 1019,
+        "Heap总峰值 (MB)": 915,
+        "Heap已用峰值 (MB)": 875,
+        "内存使用率峰值": "6.26%",
+        "Heap使用率峰值": "95.60%"
       },
       {
         "阶段": "优化&打包",
-        "阶段耗时": "2min 18s",
-        "RSS峰值 (MB)": 3022,
-        "Heap总峰值 (MB)": 2239,
-        "Heap已用峰值 (MB)": 2172,
-        "内存使用率峰值": "18.57%",
-        "Heap使用率峰值": "96.99%"
+        "阶段耗时": "1min 18s",
+        "RSS峰值 (MB)": 3270,
+        "Heap总峰值 (MB)": 2516,
+        "Heap已用峰值 (MB)": 2451,
+        "内存使用率峰值": "20.10%",
+        "Heap使用率峰值": "97.42%"
       }
-    ]
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": true,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
   },
   {
-    "timestamp": "2025-2-28 16:37:00",
-    "totalTime": "3min 17s",
+    "timestamp": "2025-03-10 19:28:34",
+    "totalTime": "2min 9s",
+    "status": "success",
     "data": [
       {
         "阶段": "编译",
-        "阶段耗时": "39s",
-        "RSS峰值 (MB)": 1117,
-        "Heap总峰值 (MB)": 995,
-        "Heap已用峰值 (MB)": 949,
-        "内存使用率峰值": "6.86%",
-        "Heap使用率峰值": "95.41%"
-      },
-      {
-        "阶段": "优化&打包",
-        "阶段耗时": "2min 39s",
-        "RSS峰值 (MB)": 2991,
-        "Heap总峰值 (MB)": 2460,
-        "Heap已用峰值 (MB)": 2392,
-        "内存使用率峰值": "18.38%",
-        "Heap使用率峰值": "97.22%"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-2-28 17:42:31",
-    "totalTime": "2min 56s",
-    "data": [
-      {
-        "阶段": "编译",
-        "阶段耗时": "46s",
-        "RSS峰值 (MB)": 1075,
-        "Heap总峰值 (MB)": 957,
-        "Heap已用峰值 (MB)": 917,
-        "内存使用率峰值": "6.60%",
-        "Heap使用率峰值": "95.76%"
-      },
-      {
-        "阶段": "优化&打包",
-        "阶段耗时": "2min 10s",
-        "RSS峰值 (MB)": 2972,
-        "Heap总峰值 (MB)": 2234,
-        "Heap已用峰值 (MB)": 2166,
-        "内存使用率峰值": "18.26%",
-        "Heap使用率峰值": "96.97%"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-3-1 12:12:51",
-    "totalTime": "3min 17s",
-    "data": [
-      {
-        "阶段": "编译",
-        "阶段耗时": "55s",
-        "RSS峰值 (MB)": 1227,
-        "Heap总峰值 (MB)": 995,
-        "Heap已用峰值 (MB)": 955,
-        "内存使用率峰值": "7.54%",
-        "Heap使用率峰值": "95.95%"
-      },
-      {
-        "阶段": "优化&打包",
-        "阶段耗时": "2min 22s",
-        "RSS峰值 (MB)": 2923,
-        "Heap总峰值 (MB)": 2255,
-        "Heap已用峰值 (MB)": 2193,
-        "内存使用率峰值": "17.96%",
-        "Heap使用率峰值": "97.24%"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-3-1 12:20:43",
-    "totalTime": "2min 38s",
-    "data": [
-      {
-        "阶段": "编译",
-        "阶段耗时": "60s",
-        "RSS峰值 (MB)": 1186,
-        "Heap总峰值 (MB)": 951,
-        "Heap已用峰值 (MB)": 898,
-        "内存使用率峰值": "7.29%",
-        "Heap使用率峰值": "94.51%"
+        "阶段耗时": "31s",
+        "RSS峰值 (MB)": 966,
+        "Heap总峰值 (MB)": 873,
+        "Heap已用峰值 (MB)": 837,
+        "内存使用率峰值": "5.94%",
+        "Heap使用率峰值": "95.86%"
       },
       {
         "阶段": "优化&打包",
         "阶段耗时": "1min 38s",
-        "RSS峰值 (MB)": 3211,
-        "Heap总峰值 (MB)": 2277,
-        "Heap已用峰值 (MB)": 2190,
-        "内存使用率峰值": "19.73%",
-        "Heap使用率峰值": "96.20%"
+        "RSS峰值 (MB)": 3202,
+        "Heap总峰值 (MB)": 2448,
+        "Heap已用峰值 (MB)": 2384,
+        "内存使用率峰值": "19.68%",
+        "Heap使用率峰值": "97.38%"
       }
-    ]
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": true,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
+  },
+  {
+    "timestamp": "2025-03-10 19:32:45",
+    "totalTime": "2min 29s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "49s",
+        "RSS峰值 (MB)": 997,
+        "Heap总峰值 (MB)": 897,
+        "Heap已用峰值 (MB)": 858,
+        "内存使用率峰值": "6.13%",
+        "Heap使用率峰值": "95.67%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "1min 40s",
+        "RSS峰值 (MB)": 3288,
+        "Heap总峰值 (MB)": 2531,
+        "Heap已用峰值 (MB)": 2467,
+        "内存使用率峰值": "20.21%",
+        "Heap使用率峰值": "97.44%"
+      }
+    ],
+    "buildConfigurations": {
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "optimization": true,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "20mb",
+          "maximumError": "30mb"
+        }
+      ]
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
   }
 ]

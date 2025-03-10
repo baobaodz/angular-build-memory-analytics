@@ -1,6 +1,9 @@
 // 初始化图表实例
 let timeChart, memoryChart;
 let isHorizontalLayout = true;
+let buildConfigVisible = false;
+// 添加显示构建配置的函数
+let rawDataCache = null;
 
 // 页面加载初始化
 window.onload = function () {
@@ -29,7 +32,11 @@ function handleFileSelect(event) {
       content = content.trim();
       // 使用\s*处理空格和换行，同时确保中间不包含]或[
       content = content.replace(/\]\s*((?!.*[\[\]])[\s\S])*?\s*\[/g, ",");
+
       const rawData = JSON.parse(content);
+      // 缓存原始数据
+      rawDataCache = rawData;
+
       const processedData = processData(rawData);
       renderCharts(processedData);
     } catch (error) {
@@ -58,7 +65,15 @@ function bindChartEvents() {
       dataIndex: params.dataIndex,
     });
   });
+  // 添加鼠标移出事件
+  timeChart.on("globalout", hideConfigTip);
+  memoryChart.on("globalout", hideConfigTip);
 }
+function hideConfigTip() {
+    const tipContainer = document.getElementById('hoverConfigTip');
+    tipContainer.classList.remove('active');
+    lastConfig = null;
+  }
 // 布局切换
 function toggleLayout() {
   const chartContainer = document.getElementById("chartContainer");
@@ -75,6 +90,7 @@ function toggleLayout() {
     memoryChart.resize();
   }, 300);
 }
+
 // 修改后的图表渲染函数
 function renderCharts(processedData) {
   const timeOption = createTimeOption(processedData);
@@ -82,7 +98,39 @@ function renderCharts(processedData) {
   timeChart.setOption(timeOption);
   memoryChart.setOption(memoryOption);
 }
+// 添加节流函数
+function throttle(fn, delay) {
+  let timer = null;
+  let lastTime = 0;
 
+  return function (...args) {
+    const now = Date.now();
+
+    if (now - lastTime >= delay) {
+      fn.apply(this, args);
+      lastTime = now;
+    } else {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+        lastTime = now;
+      }, delay);
+    }
+  };
+}
+// 添加防抖函数
+function debounce(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
+// 使用防抖包装 showBuildConfig
+const debouncedShowBuildConfig = debounce(showBuildConfig, 100);
 function createTimeOption(data) {
   // 预处理：计算各系列极值索引
   const compileTime = data.compileTime;
@@ -108,9 +156,6 @@ function createTimeOption(data) {
         fontSize: 12,
       },
       itemGap: 20,
-    },
-    tooltip: {
-      trigger: "axis",
     },
     xAxis: {
       type: "category",
@@ -327,7 +372,9 @@ function createTimeOption(data) {
     tooltip: {
       trigger: "axis",
       formatter: (params) => {
-        let tooltipContent = `${params[0].axisValue}<br>`;
+        const time = params[0].axisValue;
+        debouncedShowBuildConfig(time);
+        let tooltipContent = `${time}<br>`;
         params.forEach((p) => {
           // 使用新的时间格式化函数
           const timeValue = formatTimeSeconds(p.value);
@@ -353,9 +400,6 @@ function createMemoryOption(data) {
       },
       itemWidth: 25,
       itemHeight: 14,
-    },
-    tooltip: {
-      trigger: "axis",
     },
     xAxis: {
       type: "category",
@@ -494,6 +538,19 @@ function createMemoryOption(data) {
     grid: {
       bottom: "18%",
     },
+    tooltip: {
+      trigger: "axis",
+      formatter: function (params) {
+        const time = params[0].axisValue;
+        debouncedShowBuildConfig(time);
+
+        let tooltipContent = `${time}<br>`;
+        params.forEach((p) => {
+          tooltipContent += `${p.marker} ${p.seriesName}: ${p.value}<br>`;
+        });
+        return tooltipContent;
+      },
+    },
   };
 }
 // 数据预处理（保持原有逻辑）
@@ -612,4 +669,48 @@ function downloadSampleFile() {
     event.initEvent("click", true, true);
     link.dispatchEvent(event);
   }
+}
+
+
+let lastConfig = null;
+
+function showBuildConfig(time) {
+  const tipContainer = document.getElementById("hoverConfigTip");
+
+  if (!rawDataCache) return;
+
+  const matchedData = rawDataCache.find((entry) => {
+    const rawTime = new Date(entry.timestamp);
+    const adjustedTime = new Date(rawTime.getTime() + 8 * 3600 * 1000);
+    const entryTime = formatTime(adjustedTime);
+    return entryTime === time;
+  });
+
+  if (matchedData && matchedData.buildConfigurations) {
+    const currentConfig = matchedData.buildConfigurations;
+    tipContainer.innerHTML = `
+        <div class="config-group">
+            <div class="config-subtitle">构建时间: ${time}</div>
+            ${renderConfigItemsWithDiff(currentConfig, lastConfig)}
+        </div>
+      `;
+    tipContainer.classList.add("active");
+    lastConfig = currentConfig;
+  } else {
+    tipContainer.classList.remove("active");
+  }
+}
+function renderConfigItemsWithDiff(currentConfig, lastConfig) {
+  return `<div class="config-items">
+      ${Object.entries(currentConfig)
+        .map(([key, value]) => {
+          const changed = lastConfig && lastConfig[key] !== value;
+          return `
+            <span class="config-item ${changed ? "config-changed" : ""}">
+              ${key}: <span class="config-value-${value}">${value}</span>
+            </span>
+          `;
+        })
+        .join("")}
+    </div>`;
 }
