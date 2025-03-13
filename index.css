@@ -203,7 +203,7 @@ h2 {
 /* 基础样式保持 */
 .container {
     max-width: 100%;
-    margin: 20px auto;
+    margin: 0px auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -215,10 +215,136 @@ h2 {
     padding: 10px;
     border: 2px dashed #ccc;
     border-radius: 5px;
-    width: 80%;
+    width: 100%;
     cursor: pointer;
 }
 
+.file-drop-zone {
+    width: 100%;
+    height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: border-color 0.3s;
+}
+
+.file-drop-zone.drag-over {
+    border-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.file-drop-zone input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.drop-zone-text {
+    color: #666;
+    pointer-events: none;
+}
+
+.input-container {
+    position: relative;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.input-area {
+    transition: opacity 0.3s ease;
+}
+
+.input-area.fade-out {
+    opacity: 0;
+}
+
+.input-area.fade-in {
+    opacity: 1;
+}
+
+#jsonInput {
+    font-family: HK Grotesk;
+    font-weight: 100;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.switch-btn {
+    position: absolute;
+    top: -19px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px;
+    border: 1px dashed black;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    transition: transform 0.3s ease;
+    z-index: 99;
+}
+
+.switch-btn:hover {
+    background-color: #D0FFF1;
+}
+
+/* .switch-btn.rotate {
+    transform: rotate(360deg);
+} */
+
+.switch-icon {
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+}
+
+.fullscreen-btn {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 5px 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.fullscreen-btn:hover {
+    opacity: 1;
+}
+
+.textarea-fullscreen {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999;
+    background: white;
+    padding: 20px;
+    border: none;
+    border-radius: 0;
+}
+
+.fullscreen-btn.active .fullscreen-icon {
+    transform: rotate(180deg);
+}
+.fullscreen-icon {
+    cursor: pointer;
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+}
 #chartContainer {
     display: flex;
     justify-content: center;
@@ -238,7 +364,17 @@ h2 {
 .vertical-layout .chart-container {
     width: 100%;
 }
-
+.vertical-layout .hover-config-tip {
+    order: -1; /* 确保配置显示在图表前面 */
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .horizontal-layout .hover-config-tip {
+    order: 0;
+    margin-top: 20px;
+  }
+  
 .horizontal-layout {
     flex-direction: row;
     flex-wrap: wrap;
@@ -255,15 +391,17 @@ h2 {
     justify-content: center;
     align-items: center;
 }
-
+.analyze-btn {
+    display: none;
+    transition: all 0.3s ease;
+  }
+  
 a {
     text-decoration: none;
 }
 
 button {
     padding: 8px 15px;
-    background: #4CAF50;
-    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -314,13 +452,18 @@ button {
 }
 
 .hover-config-tip {
+    width: 100%;
     padding: 0 25px;
     border-radius: 6px;
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .hover-config-tip.active {
-    display: block;
+    max-height: 500px; /* 设置一个足够大的最大高度 */
+    opacity: 1;
 }
 
 .config-changed {

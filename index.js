@@ -17,7 +17,65 @@ window.onload = function () {
   // 绑定文件选择事件
   const fileInput = document.getElementById("fileInput");
   fileInput.addEventListener("change", handleFileSelect);
+
+  bindDropZoneEvents();
 };
+function bindDropZoneEvents() {
+    // 添加拖拽上传功能
+    const dropZone = document.getElementById('dropZone');
+  
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => {
+        dropZone.classList.add('drag-over');
+      });
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => {
+        dropZone.classList.remove('drag-over');
+      });
+    });
+    
+    dropZone.addEventListener('drop', (e) => {
+      const file = e.dataTransfer.files[0];
+      if(file) {
+        handleFileSelect({target: {files: [file]}});
+      }
+    });
+}
+function toggleFullscreen() {
+  const textarea = document.getElementById('jsonInput');
+  const fullscreenBtn = document.querySelector('.fullscreen-btn');
+  
+  if (!textarea.classList.contains('textarea-fullscreen')) {
+    textarea.classList.add('textarea-fullscreen');
+    fullscreenBtn.classList.add('active');
+    // 自动聚焦
+    textarea.focus();
+  } else {
+    textarea.classList.remove('textarea-fullscreen');
+    fullscreenBtn.classList.remove('active');
+  }
+}
+
+// 添加ESC键退出全屏
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const textarea = document.getElementById('jsonInput');
+    if (textarea.classList.contains('textarea-fullscreen')) {
+      toggleFullscreen();
+    }
+  }
+});
 // 修改后的文件处理函数
 function handleFileSelect(event) {
   const file = event.target.files[0];
@@ -78,19 +136,88 @@ function hideConfigTip() {
 function toggleLayout() {
   const chartContainer = document.getElementById("chartContainer");
   const mainContainer = document.getElementById("mainContainer");
+  const configTip = document.getElementById("hoverConfigTip");
   isHorizontalLayout = !isHorizontalLayout;
   chartContainer.className = isHorizontalLayout
     ? "horizontal-layout"
     : "vertical-layout";
   mainContainer.style.maxWidth = isHorizontalLayout ? "100%" : "1200px";
 
+  // 移动配置提示到合适的位置
+  if(!isHorizontalLayout) {
+    chartContainer.insertBefore(configTip, chartContainer.firstChild);
+  } else {
+    chartContainer.appendChild(configTip);
+  }
   // ECharts 自适应
   setTimeout(() => {
     timeChart.resize();
     memoryChart.resize();
   }, 300);
 }
+// 切换输入模式
+function switchInputMode() {
+  const fileArea = document.getElementById('fileInputArea');
+  const textArea = document.getElementById('textInputArea');
+  const switchBtn = document.querySelector('.switch-btn');
+  const analyzeBtn = document.querySelector('.analyze-btn');
+  
+  // 添加旋转动画
+  switchBtn.classList.add('rotate');
+  
+  // 添加淡出动画
+  if (fileArea.style.display !== 'none') {
+    fileArea.classList.add('fade-out');
+    setTimeout(() => {
+      fileArea.style.display = 'none';
+      textArea.style.display = 'flex';
+      // 添加淡入动画
+      setTimeout(() => {
+        textArea.classList.add('fade-in');
+        analyzeBtn.style.display = 'block';
+      }, 50);
+    }, 300);
+  } else {
+    textArea.classList.add('fade-out');
+    analyzeBtn.style.display = 'none';
+    setTimeout(() => {
+      textArea.style.display = 'none';
+      fileArea.style.display = 'flex';
+      // 添加淡入动画
+      setTimeout(() => fileArea.classList.add('fade-in'), 50);
+    }, 300);
+  }
+  
+  // 重置动画类
+  setTimeout(() => {
+    switchBtn.classList.remove('rotate');
+    fileArea.classList.remove('fade-out', 'fade-in');
+    textArea.classList.remove('fade-out', 'fade-in');
+  }, 300);
+}
 
+
+// 分析输入框数据
+function analyzeInputData() {
+  const jsonInput = document.getElementById('jsonInput');
+  const content = jsonInput.value.trim();
+  
+  try {
+    // 处理空格和换行
+    const cleanContent = content.replace(/\]\s*((?!.*[\[\]])[\s\S])*?\s*\[/g, ",");
+    if(!cleanContent) {
+      showError("输入数据为空");
+      return;
+    };
+    const rawData = JSON.parse(cleanContent);
+    rawDataCache = rawData;
+    
+    const processedData = processData(rawData);
+    renderCharts(processedData);
+  } catch (error) {
+    showError("数据解析失败: " + error.message);
+  }
+}
 // 修改后的图表渲染函数
 function renderCharts(processedData) {
   const timeOption = createTimeOption(processedData);
@@ -387,6 +514,14 @@ function createTimeOption(data) {
 }
 
 function createMemoryOption(data) {
+  const compileHeap = data.compileHeap;
+  const compileHeapMaxIndex = compileHeap.indexOf(Math.max(...compileHeap));
+  const compileHeapMinIndex = compileHeap.indexOf(Math.min(...compileHeap));
+
+  const optimizeHeap = data.optimizeHeap;
+  const optimizeHeapMaxIndex = optimizeHeap.indexOf(Math.max(...optimizeHeap));
+  const optimizeHeapMinIndex = optimizeHeap.indexOf(Math.min(...optimizeHeap));
+
   return {
     title: {
       text: "构建阶段内存使用分析",
@@ -416,7 +551,7 @@ function createMemoryOption(data) {
       {
         name: "编译Heap峰值",
         type: "bar",
-        data: data.compileHeap,
+        data: compileHeap,
         itemStyle: {
           color: "#91CC75",
         },
@@ -424,9 +559,19 @@ function createMemoryOption(data) {
           // 新增数值标签
           show: true,
           position: "top",
-          formatter: "{@y}MB",
           color: "#91CC75",
           fontSize: 12,
+          formatter: function (params) {
+            // 动态判断是否为极值点
+            if (
+              params.dataIndex === compileHeapMaxIndex ||
+              params.dataIndex === compileHeapMinIndex
+            ) {
+              return ""; // 极值点不显示系列标签
+            }
+            return `${params.value}MB`;
+          },
+          
         },
         markPoint: {
           data: [
@@ -470,16 +615,25 @@ function createMemoryOption(data) {
       {
         name: "优化&打包Heap峰值",
         type: "bar",
-        data: data.optimizeHeap,
+        data: optimizeHeap,
         itemStyle: {
           color: "#FAC858",
         },
         label: {
           show: true,
           position: "top",
-          formatter: "{@y}MB",
           color: "#FAC858",
           fontSize: 12,
+          formatter: function (params) {
+            // 动态判断是否为极值点
+            if (
+              params.dataIndex === optimizeHeapMaxIndex ||
+              params.dataIndex === optimizeHeapMinIndex
+            ) {
+              return ""; // 极值点不显示系列标签
+            }
+            return `${params.value}MB`;
+          },
         },
         markPoint: {
           data: [
@@ -567,10 +721,9 @@ function processData(data) {
   data.forEach((entry) => {
     // 时区转换处理
     const rawTime = new Date(entry.timestamp);
-    const adjustedTime = new Date(rawTime.getTime() + 8 * 3600 * 1000);
 
     // 格式化为 "MM-DD HH:mm"
-    const timeStr = formatTime(adjustedTime);
+    const timeStr = formatTime(rawTime);
     // 提取总耗时（新增）
     if (entry.totalTime) {
       result.totalTime.push(convertToSeconds(entry.totalTime));
@@ -681,8 +834,7 @@ function showBuildConfig(time) {
 
   const matchedData = rawDataCache.find((entry) => {
     const rawTime = new Date(entry.timestamp);
-    const adjustedTime = new Date(rawTime.getTime() + 8 * 3600 * 1000);
-    const entryTime = formatTime(adjustedTime);
+    const entryTime = formatTime(rawTime);
     return entryTime === time;
   });
 

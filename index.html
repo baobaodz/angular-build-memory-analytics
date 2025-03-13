@@ -10,17 +10,39 @@
 
   <body>
     <div class="container" id="mainContainer">
-      <input type="file" id="fileInput" accept=".json" />
+
+      <div class="input-container">
+        <button class="switch-btn" onclick="switchInputMode()">
+          <span class="switch-icon">⇄</span>
+        </button>
+        <div id="fileInputArea" class="input-area">
+          <div class="file-drop-zone" id="dropZone">
+            <input type="file" id="fileInput" accept=".json" />
+            <div class="drop-zone-text">
+              拖拽文件到此处或点击上传
+            </div>
+          </div>
+        </div>
+        <div id="textInputArea" class="input-area" style="display:none;">
+          <textarea id="jsonInput" placeholder="请粘贴JSON数据..."></textarea>
+          <button class="fullscreen-btn" onclick="toggleFullscreen()">
+            <svg t="1741707379485" class="icon fullscreen-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2623" width="24" height="24">
+              <path d="M285.866667 810.666667H384v42.666666H213.333333v-170.666666h42.666667v98.133333l128-128 29.866667 29.866667-128 128z m494.933333 0l-128-128 29.866667-29.866667 128 128V682.666667h42.666666v170.666666h-170.666666v-42.666666h98.133333zM285.866667 256l128 128-29.866667 29.866667-128-128V384H213.333333V213.333333h170.666667v42.666667H285.866667z m494.933333 0H682.666667V213.333333h170.666666v170.666667h-42.666666V285.866667l-128 128-29.866667-29.866667 128-128z" fill="#444444" p-id="2624"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
       <div class="toolbar">
         <button class="btn--remix" onclick="downloadSampleFile()">下载示例文件</button>
         <button class="btn--remix" onclick="toggleLayout()">切换布局</button>
+        <button class="btn--remix analyze-btn" onclick="analyzeInputData()">分析数据</button>
       </div>
       <div id="chartContainer" class="horizontal-layout">
         <div id="timeChart" class="chart-container"></div>
         <div id="memoryChart" class="chart-container"></div>
+        <div id="hoverConfigTip" class="hover-config-tip"></div>
       </div>
-      <!-- 新增提示区域 -->
-      <div id="hoverConfigTip" class="hover-config-tip"></div>
     </div>
 
     <script></script>

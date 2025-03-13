@@ -24,31 +24,16 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": false,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ],
-      "configuration": 1
+      "buildOptimizer": true
     },
     "cliArguments": {
-      "configuration": true,
-      "optimization": "false"
+      "configuration": "production"
     }
   },
   {
@@ -76,31 +61,16 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": false,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ],
-      "configuration": "production"
+      "buildOptimizer": true
     },
     "cliArguments": {
-      "configuration": "production",
-      "optimization": "false"
+      "configuration": "production"
     }
   },
   {
@@ -128,30 +98,16 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": false,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
-      "configuration": "production",
-      "optimization": "false"
+      "configuration": "production"
     }
   },
   {
@@ -179,30 +135,16 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": false,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
-      "configuration": "production",
-      "optimization": "false"
+      "configuration": "production"
     }
   },
   {
@@ -230,30 +172,16 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": false,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
-      "configuration": "production",
-      "optimization": "false"
+      "configuration": "production"
     }
   },
   {
@@ -281,30 +209,16 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": false,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
-      "configuration": "production",
-      "optimization": "false"
+      "configuration": "production"
     }
   },
   {
@@ -332,26 +246,13 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": true,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
       "configuration": "production"
@@ -382,26 +283,13 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": true,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
       "configuration": "production"
@@ -432,26 +320,13 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": true,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
       "configuration": "production"
@@ -482,26 +357,13 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": true,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
       "configuration": "production"
@@ -532,26 +394,13 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": true,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
       "configuration": "production"
@@ -582,26 +431,13 @@
       }
     ],
     "buildConfigurations": {
-      "fileReplacements": [
-        {
-          "replace": "src/environments/environment.ts",
-          "with": "src/environments/environment.prod.ts"
-        }
-      ],
       "optimization": true,
       "outputHashing": "all",
       "sourceMap": false,
       "namedChunks": false,
       "extractLicenses": true,
       "vendorChunk": true,
-      "buildOptimizer": true,
-      "budgets": [
-        {
-          "type": "initial",
-          "maximumWarning": "20mb",
-          "maximumError": "30mb"
-        }
-      ]
+      "buildOptimizer": true
     },
     "cliArguments": {
       "configuration": "production"

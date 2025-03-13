@@ -1,109 +1,391 @@
 [
-    {
-      "timestamp": "2025-03-06 09:12:01",
-      "totalTime": "2min 26s",
-      "status": "success",
-      "data": [
-        {
-          "阶段": "编译",
-          "阶段耗时": "21s",
-          "RSS峰值 (MB)": 934,
-          "Heap总峰值 (MB)": 812,
-          "Heap已用峰值 (MB)": 771,
-          "内存使用率峰值": "5.88%",
-          "Heap使用率峰值": "94.89%"
-        },
-        {
-          "阶段": "优化&打包",
-          "阶段耗时": "2min 3s",
-          "RSS峰值 (MB)": 5612,
-          "Heap总峰值 (MB)": 5397,
-          "Heap已用峰值 (MB)": 5252,
-          "内存使用率峰值": "35.33%",
-          "Heap使用率峰值": "97.33%"
-        }
-      ]
+  {
+    "timestamp": "2025-03-07 03:17:10",
+    "totalTime": "2min 27s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 946,
+        "Heap总峰值 (MB)": 821,
+        "Heap已用峰值 (MB)": 776,
+        "内存使用率峰值": "5.95%",
+        "Heap使用率峰值": "94.46%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 4s",
+        "RSS峰值 (MB)": 5685,
+        "Heap总峰值 (MB)": 5449,
+        "Heap已用峰值 (MB)": 5306,
+        "内存使用率峰值": "35.79%",
+        "Heap使用率峰值": "97.38%"
+      }
+    ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-07 03:42:45",
+    "totalTime": "2min 25s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 934,
+        "Heap总峰值 (MB)": 813,
+        "Heap已用峰值 (MB)": 766,
+        "内存使用率峰值": "5.88%",
+        "Heap使用率峰值": "94.31%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 2s",
+        "RSS峰值 (MB)": 5239,
+        "Heap总峰值 (MB)": 5016,
+        "Heap已用峰值 (MB)": 4900,
+        "内存使用率峰值": "32.98%",
+        "Heap使用率峰值": "97.70%"
+      }
+    ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-07 10:45:22",
+    "totalTime": "2min 28s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 942,
+        "Heap总峰值 (MB)": 818,
+        "Heap已用峰值 (MB)": 775,
+        "内存使用率峰值": "5.93%",
+        "Heap使用率峰值": "94.73%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 4s",
+        "RSS峰值 (MB)": 5784,
+        "Heap总峰值 (MB)": 5559,
+        "Heap已用峰值 (MB)": 5350,
+        "内存使用率峰值": "36.41%",
+        "Heap使用率峰值": "96.24%"
+      }
+    ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-07 10:54:00",
+    "totalTime": "2min 27s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 933,
+        "Heap总峰值 (MB)": 811,
+        "Heap已用峰值 (MB)": 769,
+        "内存使用率峰值": "5.87%",
+        "Heap使用率峰值": "94.82%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 4s",
+        "RSS峰值 (MB)": 5723,
+        "Heap总峰值 (MB)": 5491,
+        "Heap已用峰值 (MB)": 5359,
+        "内存使用率峰值": "36.03%",
+        "Heap使用率峰值": "97.61%"
+      }
+    ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-11 03:37:57",
+    "totalTime": "2min 27s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 934,
+        "Heap总峰值 (MB)": 810,
+        "Heap已用峰值 (MB)": 770,
+        "内存使用率峰值": "5.88%",
+        "Heap使用率峰值": "95.05%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 4s",
+        "RSS峰值 (MB)": 5556,
+        "Heap总峰值 (MB)": 5334,
+        "Heap已用峰值 (MB)": 5204,
+        "内存使用率峰值": "34.98%",
+        "Heap使用率峰值": "97.55%"
+      }
+    ],
+    "buildConfigurations": {
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true
+    },
+    "cliArguments": {
+      "configuration": "production"
     }
-  ]
-  
-  [
-    {
-      "timestamp": "2025-03-06 09:23:15",
-      "totalTime": "2min 26s",
-      "status": "success",
-      "data": [
-        {
-          "阶段": "编译",
-          "阶段耗时": "21s",
-          "RSS峰值 (MB)": 936,
-          "Heap总峰值 (MB)": 813,
-          "Heap已用峰值 (MB)": 767,
-          "内存使用率峰值": "5.89%",
-          "Heap使用率峰值": "94.30%"
-        },
-        {
-          "阶段": "优化&打包",
-          "阶段耗时": "2min 3s",
-          "RSS峰值 (MB)": 4776,
-          "Heap总峰值 (MB)": 4559,
-          "Heap已用峰值 (MB)": 4422,
-          "内存使用率峰值": "30.06%",
-          "Heap使用率峰值": "97.00%"
-        }
-      ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-11 04:05:18",
+    "totalTime": "2min 33s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "20s",
+        "RSS峰值 (MB)": 993,
+        "Heap总峰值 (MB)": 870,
+        "Heap已用峰值 (MB)": 835,
+        "内存使用率峰值": "6.25%",
+        "Heap使用率峰值": "95.87%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 10s",
+        "RSS峰值 (MB)": 5661,
+        "Heap总峰值 (MB)": 5443,
+        "Heap已用峰值 (MB)": 5289,
+        "内存使用率峰值": "35.64%",
+        "Heap使用率峰值": "97.18%"
+      }
+    ],
+    "buildConfigurations": {
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true
+    },
+    "cliArguments": {
+      "configuration": "production"
     }
-  ]
-  [
-    {
-      "timestamp": "2025-03-06 09:45:30",
-      "totalTime": "2min 29s",
-      "status": "success",
-      "data": [
-        {
-          "阶段": "编译",
-          "阶段耗时": "20s",
-          "RSS峰值 (MB)": 996,
-          "Heap总峰值 (MB)": 875,
-          "Heap已用峰值 (MB)": 831,
-          "内存使用率峰值": "6.27%",
-          "Heap使用率峰值": "95.03%"
-        },
-        {
-          "阶段": "优化&打包",
-          "阶段耗时": "2min 6s",
-          "RSS峰值 (MB)": 5604,
-          "Heap总峰值 (MB)": 5382,
-          "Heap已用峰值 (MB)": 5235,
-          "内存使用率峰值": "35.28%",
-          "Heap使用率峰值": "97.27%"
-        }
-      ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-11 06:57:04",
+    "totalTime": "2min 34s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 940,
+        "Heap总峰值 (MB)": 815,
+        "Heap已用峰值 (MB)": 771,
+        "内存使用率峰值": "5.91%",
+        "Heap使用率峰值": "94.59%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 10s",
+        "RSS峰值 (MB)": 5713,
+        "Heap总峰值 (MB)": 5483,
+        "Heap已用峰值 (MB)": 5300,
+        "内存使用率峰值": "35.96%",
+        "Heap使用率峰值": "96.66%"
+      }
+    ],
+    "buildConfigurations": {
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true
+    },
+    "cliArguments": {
+      "configuration": "production"
     }
-  ]
-  [
-    {
-      "timestamp": "2025-03-06 10:16:04",
-      "totalTime": "2min 30s",
-      "status": "success",
-      "data": [
-        {
-          "阶段": "编译",
-          "阶段耗时": "20s",
-          "RSS峰值 (MB)": 991,
-          "Heap总峰值 (MB)": 870,
-          "Heap已用峰值 (MB)": 830,
-          "内存使用率峰值": "6.24%",
-          "Heap使用率峰值": "95.42%"
-        },
-        {
-          "阶段": "优化&打包",
-          "阶段耗时": "2min 7s",
-          "RSS峰值 (MB)": 5669,
-          "Heap总峰值 (MB)": 5441,
-          "Heap已用峰值 (MB)": 5276,
-          "内存使用率峰值": "35.69%",
-          "Heap使用率峰值": "96.96%"
-        }
-      ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-11 18:26:13",
+    "totalTime": "2min 35s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 941,
+        "Heap总峰值 (MB)": 818,
+        "Heap已用峰值 (MB)": 770,
+        "内存使用率峰值": "5.92%",
+        "Heap使用率峰值": "94.15%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 11s",
+        "RSS峰值 (MB)": 5661,
+        "Heap总峰值 (MB)": 5433,
+        "Heap已用峰值 (MB)": 5300,
+        "内存使用率峰值": "35.63%",
+        "Heap使用率峰值": "97.55%"
+      }
+    ],
+    "buildConfigurations": {
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true
+    },
+    "cliArguments": {
+      "configuration": "production"
     }
-  ]
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-11 18:44:13",
+    "totalTime": "2min 37s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 945,
+        "Heap总峰值 (MB)": 821,
+        "Heap已用峰值 (MB)": 772,
+        "内存使用率峰值": "5.95%",
+        "Heap使用率峰值": "94.05%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 14s",
+        "RSS峰值 (MB)": 6201,
+        "Heap总峰值 (MB)": 5982,
+        "Heap已用峰值 (MB)": 5766,
+        "内存使用率峰值": "39.04%",
+        "Heap使用率峰值": "96.39%"
+      }
+    ],
+    "buildConfigurations": {
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-11 19:12:18",
+    "totalTime": "2min 30s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "20s",
+        "RSS峰值 (MB)": 1002,
+        "Heap总峰值 (MB)": 880,
+        "Heap已用峰值 (MB)": 840,
+        "内存使用率峰值": "6.31%",
+        "Heap使用率峰值": "95.45%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 8s",
+        "RSS峰值 (MB)": 5651,
+        "Heap总峰值 (MB)": 5434,
+        "Heap已用峰值 (MB)": 5290,
+        "内存使用率峰值": "35.58%",
+        "Heap使用率峰值": "97.34%"
+      }
+    ],
+    "buildConfigurations": {
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
+  }
+]
+
+[
+  {
+    "timestamp": "2025-03-11 19:58:07",
+    "totalTime": "2min 26s",
+    "status": "success",
+    "data": [
+      {
+        "阶段": "编译",
+        "阶段耗时": "21s",
+        "RSS峰值 (MB)": 933,
+        "Heap总峰值 (MB)": 810,
+        "Heap已用峰值 (MB)": 771,
+        "内存使用率峰值": "5.87%",
+        "Heap使用率峰值": "95.22%"
+      },
+      {
+        "阶段": "优化&打包",
+        "阶段耗时": "2min 3s",
+        "RSS峰值 (MB)": 5321,
+        "Heap总峰值 (MB)": 5106,
+        "Heap已用峰值 (MB)": 4979,
+        "内存使用率峰值": "33.49%",
+        "Heap使用率峰值": "97.50%"
+      }
+    ],
+    "buildConfigurations": {
+      "optimization": false,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": true,
+      "buildOptimizer": true
+    },
+    "cliArguments": {
+      "configuration": "production"
+    }
+  }
+]
