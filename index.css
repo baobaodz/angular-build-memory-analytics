@@ -227,6 +227,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     position: relative;
     transition: border-color 0.3s;
 }
@@ -247,6 +248,19 @@ h2 {
 .drop-zone-text {
     color: #666;
     pointer-events: none;
+    margin: 10px 0px;
+}
+
+.file-name {
+    display: none;
+    color: #666;
+    word-break: break-all;
+    padding: 6px 12px;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 .input-container {
@@ -339,12 +353,44 @@ h2 {
 .fullscreen-btn.active .fullscreen-icon {
     transform: rotate(180deg);
 }
+
 .fullscreen-icon {
     cursor: pointer;
     fill: none;
     stroke: #000;
     stroke-width: 2;
 }
+
+.filter-container {
+    display: none;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.filter-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-item {
+    padding: 6px 12px;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-item:hover {
+    background: #dee2e6;
+}
+
+.filter-item.active {
+    background: #91CC75;
+    color: white;
+}
+
 #chartContainer {
     display: flex;
     justify-content: center;
@@ -364,17 +410,21 @@ h2 {
 .vertical-layout .chart-container {
     width: 100%;
 }
+
 .vertical-layout .hover-config-tip {
-    order: -1; /* 确保配置显示在图表前面 */
+    order: -1;
+    /* 确保配置显示在图表前面 */
     width: 100%;
     margin-bottom: 20px;
-  }
-  
-  .horizontal-layout .hover-config-tip {
+    display: inline-flex;
+    justify-content: center;
+}
+
+.horizontal-layout .hover-config-tip {
     order: 0;
     margin-top: 20px;
-  }
-  
+}
+
 .horizontal-layout {
     flex-direction: row;
     flex-wrap: wrap;
@@ -391,11 +441,12 @@ h2 {
     justify-content: center;
     align-items: center;
 }
+
 .analyze-btn {
     display: none;
     transition: all 0.3s ease;
-  }
-  
+}
+
 a {
     text-decoration: none;
 }
@@ -462,7 +513,8 @@ button {
 }
 
 .hover-config-tip.active {
-    max-height: 500px; /* 设置一个足够大的最大高度 */
+    max-height: 500px;
+    /* 设置一个足够大的最大高度 */
     opacity: 1;
 }
 

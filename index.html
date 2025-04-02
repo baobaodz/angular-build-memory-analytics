@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>构建阶段分析</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
     <script src="./index.js"></script>
     <link rel="stylesheet" href="./index.css" />
   </head>
@@ -21,6 +21,7 @@
             <div class="drop-zone-text">
               拖拽文件到此处或点击上传
             </div>
+            <div id="fileName" class="file-name"></div>
           </div>
         </div>
         <div id="textInputArea" class="input-area" style="display:none;">
@@ -37,6 +38,17 @@
         <button class="btn--remix" onclick="downloadSampleFile()">下载示例文件</button>
         <button class="btn--remix" onclick="toggleLayout()">切换布局</button>
         <button class="btn--remix analyze-btn" onclick="analyzeInputData()">分析数据</button>
+      </div>
+      <div class="filter-container" id="filterContainer">
+        <div class="filter-items">
+          <span class="filter-item active" data-value="all">全部</span>
+          <span class="filter-item" data-value="first7days">最早7天</span>
+          <span class="filter-item" data-value="first15days">最早15天</span>
+          <span class="filter-item" data-value="first10times">最早10次</span>
+          <span class="filter-item" data-value="last7days">最近7天</span>
+          <span class="filter-item" data-value="last15days">最近15天</span>
+          <span class="filter-item" data-value="last10times">最近10次</span>
+        </div>
       </div>
       <div id="chartContainer" class="horizontal-layout">
         <div id="timeChart" class="chart-container"></div>

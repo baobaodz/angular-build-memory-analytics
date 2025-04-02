@@ -19,43 +19,107 @@ window.onload = function () {
   fileInput.addEventListener("change", handleFileSelect);
 
   bindDropZoneEvents();
+
+  // 添加筛选器事件监听
+  bindFilterEvents();
 };
 function bindDropZoneEvents() {
-    // 添加拖拽上传功能
-    const dropZone = document.getElementById('dropZone');
-  
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-      dropZone.addEventListener(eventName, preventDefaults, false);
+  // 添加拖拽上传功能
+  const dropZone = document.getElementById('dropZone');
+
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, preventDefaults, false);
+  });
+
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, () => {
+      dropZone.classList.add('drag-over');
     });
-    
-    function preventDefaults(e) {
-      e.preventDefault();
-      e.stopPropagation();
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, () => {
+      dropZone.classList.remove('drag-over');
+    });
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      handleFileSelect({ target: { files: [file] } });
     }
-    
-    ['dragenter', 'dragover'].forEach(eventName => {
-      dropZone.addEventListener(eventName, () => {
-        dropZone.classList.add('drag-over');
+  });
+}
+function bindFilterEvents() {
+  document.querySelectorAll('.filter-item').forEach(item => {
+    item.addEventListener('click', function () {
+      // 移除其他项的active类
+      document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+      // 添加当前项的active类
+      this.classList.add('active');
+
+      if (!rawDataCache) return;
+
+      const filteredData = filterData(rawDataCache, this.dataset.value);
+      const processedData = processData(filteredData);
+      renderCharts(processedData);
+    });
+  });
+}
+function filterData(data, filterType) {
+  if (filterType === 'all') return data;
+
+  const now = new Date();
+  let filteredData;
+
+  switch (filterType) {
+    case 'first7days':
+      const firstDate = new Date(data[0].timestamp);
+      filteredData = data.filter(entry => {
+        const entryDate = new Date(entry.timestamp);
+        return (entryDate - firstDate) <= 7 * 24 * 60 * 60 * 1000;
       });
-    });
-    
-    ['dragleave', 'drop'].forEach(eventName => {
-      dropZone.addEventListener(eventName, () => {
-        dropZone.classList.remove('drag-over');
+      break;
+    case 'first15days':
+      const firstDate15 = new Date(data[0].timestamp);
+      filteredData = data.filter(entry => {
+        const entryDate = new Date(entry.timestamp);
+        return (entryDate - firstDate15) <= 15 * 24 * 60 * 60 * 1000;
       });
-    });
-    
-    dropZone.addEventListener('drop', (e) => {
-      const file = e.dataTransfer.files[0];
-      if(file) {
-        handleFileSelect({target: {files: [file]}});
-      }
-    });
+      break;
+    case 'first10times':
+      filteredData = data.slice(0, 10);
+      break;
+    case 'last7days':
+      filteredData = data.filter(entry => {
+        const entryDate = new Date(entry.timestamp);
+        return (now - entryDate) <= 7 * 24 * 60 * 60 * 1000;
+      });
+      break;
+    case 'last15days':
+      filteredData = data.filter(entry => {
+        const entryDate = new Date(entry.timestamp);
+        return (now - entryDate) <= 15 * 24 * 60 * 60 * 1000;
+      });
+      break;
+    case 'last10times':
+      filteredData = data.slice(-10);
+      break;
+    default:
+      return data;
+  }
+
+  return filteredData;
 }
 function toggleFullscreen() {
   const textarea = document.getElementById('jsonInput');
   const fullscreenBtn = document.querySelector('.fullscreen-btn');
-  
+
   if (!textarea.classList.contains('textarea-fullscreen')) {
     textarea.classList.add('textarea-fullscreen');
     fullscreenBtn.classList.add('active');
@@ -81,6 +145,11 @@ function handleFileSelect(event) {
   const file = event.target.files[0];
   if (!file) return;
 
+  // 显示文件名
+  const fileNameElement = document.getElementById('fileName');
+  fileNameElement.style.display = 'block';
+  fileNameElement.textContent = file.name;
+
   const reader = new FileReader();
 
   reader.onload = function (e) {
@@ -90,6 +159,12 @@ function handleFileSelect(event) {
       content = content.trim();
       // 使用\s*处理空格和换行，同时确保中间不包含]或[
       content = content.replace(/\]\s*((?!.*[\[\]])[\s\S])*?\s*\[/g, ",");
+      if (!content) {
+        showError("文件内容为空");
+        return;
+      };
+      // 显示筛选器
+      document.getElementById('filterContainer').style.display = 'flex';
 
       const rawData = JSON.parse(content);
       // 缓存原始数据
@@ -128,10 +203,10 @@ function bindChartEvents() {
   memoryChart.on("globalout", hideConfigTip);
 }
 function hideConfigTip() {
-    const tipContainer = document.getElementById('hoverConfigTip');
-    tipContainer.classList.remove('active');
-    lastConfig = null;
-  }
+  const tipContainer = document.getElementById('hoverConfigTip');
+  tipContainer.classList.remove('active');
+  lastConfig = null;
+}
 // 布局切换
 function toggleLayout() {
   const chartContainer = document.getElementById("chartContainer");
@@ -141,15 +216,14 @@ function toggleLayout() {
   chartContainer.className = isHorizontalLayout
     ? "horizontal-layout"
     : "vertical-layout";
-  mainContainer.style.maxWidth = isHorizontalLayout ? "100%" : "1200px";
+  mainContainer.style.maxWidth = isHorizontalLayout ? "100%" : "1400px";
 
   // 移动配置提示到合适的位置
-  if(!isHorizontalLayout) {
+  if (!isHorizontalLayout) {
     chartContainer.insertBefore(configTip, chartContainer.firstChild);
   } else {
     chartContainer.appendChild(configTip);
   }
-  // ECharts 自适应
   setTimeout(() => {
     timeChart.resize();
     memoryChart.resize();
@@ -161,10 +235,10 @@ function switchInputMode() {
   const textArea = document.getElementById('textInputArea');
   const switchBtn = document.querySelector('.switch-btn');
   const analyzeBtn = document.querySelector('.analyze-btn');
-  
+
   // 添加旋转动画
   switchBtn.classList.add('rotate');
-  
+
   // 添加淡出动画
   if (fileArea.style.display !== 'none') {
     fileArea.classList.add('fade-out');
@@ -187,7 +261,7 @@ function switchInputMode() {
       setTimeout(() => fileArea.classList.add('fade-in'), 50);
     }, 300);
   }
-  
+
   // 重置动画类
   setTimeout(() => {
     switchBtn.classList.remove('rotate');
@@ -201,17 +275,19 @@ function switchInputMode() {
 function analyzeInputData() {
   const jsonInput = document.getElementById('jsonInput');
   const content = jsonInput.value.trim();
-  
+
   try {
     // 处理空格和换行
     const cleanContent = content.replace(/\]\s*((?!.*[\[\]])[\s\S])*?\s*\[/g, ",");
-    if(!cleanContent) {
+    if (!cleanContent) {
       showError("输入数据为空");
       return;
     };
+    // 显示筛选器
+    document.getElementById('filterContainer').style.display = 'flex';
     const rawData = JSON.parse(cleanContent);
     rawDataCache = rawData;
-    
+
     const processedData = processData(rawData);
     renderCharts(processedData);
   } catch (error) {
@@ -225,6 +301,7 @@ function renderCharts(processedData) {
   timeChart.setOption(timeOption);
   memoryChart.setOption(memoryOption);
 }
+
 // 添加节流函数
 function throttle(fn, delay) {
   let timer = null;
@@ -571,7 +648,7 @@ function createMemoryOption(data) {
             }
             return `${params.value}MB`;
           },
-          
+
         },
         markPoint: {
           data: [
@@ -855,14 +932,14 @@ function showBuildConfig(time) {
 function renderConfigItemsWithDiff(currentConfig, lastConfig) {
   return `<div class="config-items">
       ${Object.entries(currentConfig)
-        .map(([key, value]) => {
-          const changed = lastConfig && lastConfig[key] !== value;
-          return `
+      .map(([key, value]) => {
+        const changed = lastConfig && lastConfig[key] !== value;
+        return `
             <span class="config-item ${changed ? "config-changed" : ""}">
               ${key}: <span class="config-value-${value}">${value}</span>
             </span>
           `;
-        })
-        .join("")}
+      })
+      .join("")}
     </div>`;
 }
