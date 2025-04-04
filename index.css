@@ -492,6 +492,18 @@ button {
     font-size: 14px;
 }
 
+/* 为缓存大小添加特殊样式 - 更兼容的方式 */
+.config-item[data-key="sizeOnDisk"] span {
+    color: #ff6600 !important;
+    font-weight: bold;
+}
+
+/* 为内存信息添加特殊样式 - 更兼容的方式 */
+.config-item[data-key="totalMemory"] span,
+.config-item[data-key="freeMemory"] span {
+    color: #9933cc !important;
+}
+
 .config-value-true {
     color: #28a745;
     font-weight: bold;

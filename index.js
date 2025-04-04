@@ -915,28 +915,72 @@ function showBuildConfig(time) {
     return entryTime === time;
   });
 
-  if (matchedData && matchedData.buildConfigurations) {
-    const currentConfig = matchedData.buildConfigurations;
+  if (matchedData) {
+    const currentConfig = matchedData.buildConfigurations || {};
+    const ngCacheInfo = matchedData.ngCacheInfo || {};
+    const deviceInfo = matchedData.deviceInfo || {};
+
     tipContainer.innerHTML = `
         <div class="config-group">
             <div class="config-subtitle">构建时间: ${time}</div>
-            ${renderConfigItemsWithDiff(currentConfig, lastConfig)}
+            ${renderConfigItemsWithDiff(currentConfig, lastConfig ? lastConfig.config : null)}
         </div>
+        ${ngCacheInfo && Object.keys(ngCacheInfo).length > 0 ? `
+        <div class="config-group">
+            <div class="config-subtitle">Angular 缓存信息</div>
+            ${renderConfigItemsWithDiff(ngCacheInfo, lastConfig ? lastConfig.cache : null)}
+        </div>
+        ` : ''}
+        ${deviceInfo && Object.keys(deviceInfo).length > 0 ? `
+        <div class="config-group">
+            <div class="config-subtitle">设备信息</div>
+            ${renderConfigItemsWithDiff(deviceInfo, lastConfig ? lastConfig.device : null)}
+        </div>
+        ` : ''}
       `;
     tipContainer.classList.add("active");
-    lastConfig = currentConfig;
+
+    // 保存上一次的配置以便比较变化
+    lastConfig = {
+      config: currentConfig,
+      cache: ngCacheInfo,
+      device: deviceInfo
+    };
   } else {
     tipContainer.classList.remove("active");
   }
 }
 function renderConfigItemsWithDiff(currentConfig, lastConfig) {
+  if (!currentConfig || Object.keys(currentConfig).length === 0) {
+    return '<div class="config-items">无数据</div>';
+  }
+  // 定义哪些字段和值应该使用布尔样式
+  const booleanLikeFields = {
+    'effectiveStatus': {
+      trueValues: ['enabled', 'active', 'on'],
+      falseValues: ['disabled', 'inactive', 'off']
+    }
+  }
   return `<div class="config-items">
       ${Object.entries(currentConfig)
       .map(([key, value]) => {
-        const changed = lastConfig && lastConfig[key] !== value;
+        const changed = lastConfig && JSON.stringify(lastConfig[key]) !== JSON.stringify(value);
+        let valueClass = '';
+        if (typeof value === 'boolean') {
+          valueClass = `config-value-${value}`;
+        } else if (booleanLikeFields[key]) {
+          // 检查是否为类布尔字段
+          const fieldConfig = booleanLikeFields[key];
+          if (fieldConfig.trueValues.includes(value.toString().toLowerCase())) {
+            valueClass = 'config-value-true';
+          } else if (fieldConfig.falseValues.includes(value.toString().toLowerCase())) {
+            valueClass = 'config-value-false';
+          }
+        }
+
         return `
-            <span class="config-item ${changed ? "config-changed" : ""}">
-              ${key}: <span class="config-value-${value}">${value}</span>
+            <span class="config-item ${changed ? "config-changed" : ""}" data-key="${key}">
+              ${key}: <span class="${valueClass}">${value}</span>
             </span>
           `;
       })

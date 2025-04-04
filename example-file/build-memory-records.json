@@ -404,6 +404,24 @@
     },
     "cliArguments": {
       "configuration": "production"
+    },
+    "ngCacheInfo": {
+      "enabled": false,
+      "environment": "all",
+      "path": "E:\\work\\code\\企税\\groupTaxReport\\.angular\\cache",
+      "sizeOnDisk": "1006.24 MB",
+      "effectiveStatus": "enabled"
+    },
+    "deviceInfo": {
+      "hostname": "DESKTOP-HEK6UKM",
+      "platform": "win32",
+      "osType": "Windows_NT",
+      "osRelease": "10.0.19045",
+      "cpuModel": "Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz",
+      "cpuCount": 4,
+      "totalMemory": "15.89 GB",
+      "freeMemory": "2.43 GB"
+
     }
   },
   {
@@ -441,6 +459,24 @@
     },
     "cliArguments": {
       "configuration": "production"
+    },
+    "ngCacheInfo": {
+      "enabled": true,
+      "environment": "all",
+      "path": "E:\\work\\code\\企税\\groupTaxReport\\.angular\\cache",
+      "sizeOnDisk": "1006.24 MB",
+      "effectiveStatus": "enabled"
+    },
+      "deviceInfo": {
+      "hostname": "DESKTOP-HEK6UKM",
+      "platform": "win32",
+      "osType": "Windows_NT",
+      "osRelease": "10.0.19045",
+      "cpuModel": "Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz",
+      "cpuCount": 4,
+      "totalMemory": "15.89 GB",
+      "freeMemory": "2.67 GB"
+
     }
   }
 ]
