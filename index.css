@@ -69,7 +69,7 @@ to this section's matching END comment to see page-specific styles.
 }
 
 .btn--remix:hover {
-    background-color: #D0FFF1;
+    background: #f0f0f0;
 }
 
 /* Navigation grid */
@@ -308,7 +308,7 @@ h2 {
 }
 
 .switch-btn:hover {
-    background-color: #D0FFF1;
+    background: #f0f0f0;
 }
 
 /* .switch-btn.rotate {
@@ -547,4 +547,285 @@ button {
     100% {
         background-color: #fff3cd;
     }
+}
+
+/* 侧边信息面板样式 */
+.side-info-panel {
+    position: fixed;
+    top: 0;
+    right: -400px; /* 初始状态隐藏在右侧 */
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    padding: 0;
+  }
+  
+  .side-info-panel.active {
+    right: 0; /* 显示状态 */
+  }
+  
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+  }
+  
+  .panel-title {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .panel-close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+  }
+  
+  .config-content {
+    padding: 20px;
+    opacity: 1;
+    max-height: none;
+    overflow: visible;
+  }
+  /* 添加图表悬浮指示器样式 */
+.chart-hover-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer; /* 确保显示为可点击状态 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 100; /* 确保在最上层 */
+    pointer-events: auto; /* 确保可以接收点击事件 */
+  }
+  
+  .chart-hover-indicator.visible {
+    opacity: 1;
+  }
+  
+  .chart-hover-indicator:hover {
+    background: #f0f0f0;
+  }
+  
+  /* 确保图表容器有相对定位，以便放置指示器 */
+  .chart-container {
+    position: relative;
+  }
+  /* 开关按钮样式 */
+.auto-popup-toggle {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+  }
+  
+  .toggle-label {
+    margin-left: 8px;
+    font-size: 14px;
+  }
+  
+  /* 开关样式 */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #91CC75;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #91CC75;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+  
+  /* 圆形滑块 */
+  .slider.round {
+    border-radius: 20px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  /* 图表悬浮指示器样式修改 */
+  .chart-hover-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer; /* 添加指针样式表明可点击 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .chart-hover-indicator.visible {
+    opacity: 1;
+  }
+  
+  .chart-hover-indicator:hover {
+    background: #f0f0f0;
+  }
+
+/* 弹出模式按钮样式 */
+.popup-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.popup-mode {
+  font-weight: bold;
+}
+
+/* 自动模式和手动模式的不同颜色 */
+.popup-mode.auto {
+  color: #28a745;
+}
+
+.popup-mode.manual {
+  color: #007bff;
+}
+
+/* 增强按钮样式 */
+.btn--remix.popup-toggle-btn {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.btn--remix.popup-toggle-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.btn--remix.popup-toggle-btn:active {
+  transform: translateY(1px);
+}
+
+/* 添加一个小图标表示模式 */
+.popup-mode::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.popup-mode.auto::before {
+  background-color: #28a745;
+}
+
+.popup-mode.manual::before {
+  background-color: #007bff;
+}
+
+/* 布局模式按钮样式 */
+.layout-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.layout-mode {
+  font-weight: bold;
+}
+
+/* 横向和竖向模式的不同颜色 */
+.layout-mode.horizontal {
+  color: #5470C6;
+}
+
+.layout-mode.vertical {
+  color: #91CC75;
+}
+
+/* 添加一个小图标表示模式 */
+.layout-mode::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.layout-mode.horizontal::before {
+  background-color: #5470C6;
+}
+
+.layout-mode.vertical::before {
+  background-color: #91CC75;
+}
+
+/* 统一按钮样式 */
+.btn--remix.layout-toggle-btn,
+.btn--remix.popup-toggle-btn {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.btn--remix.layout-toggle-btn:hover,
+.btn--remix.popup-toggle-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.btn--remix.layout-toggle-btn:active,
+.btn--remix.popup-toggle-btn:active {
+  transform: translateY(1px);
 }

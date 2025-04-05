@@ -4,6 +4,27 @@ let isHorizontalLayout = true;
 let buildConfigVisible = false;
 // 添加显示构建配置的函数
 let rawDataCache = null;
+let sideInfoPanelVisible = false;
+let hoverTimeout;
+let autoPopupEnabled = true; // 默认开启自动弹出
+
+// 切换弹出模式的函数
+function togglePopupMode() {
+  autoPopupEnabled = !autoPopupEnabled;
+  updatePopupModeButton();
+}
+
+// 更新按钮显示
+function updatePopupModeButton() {
+  const modeSpan = document.querySelector('.popup-mode');
+  if (autoPopupEnabled) {
+    modeSpan.textContent = '自动';
+    modeSpan.className = 'popup-mode auto';
+  } else {
+    modeSpan.textContent = '手动';
+    modeSpan.className = 'popup-mode manual';
+  }
+}
 
 // 页面加载初始化
 window.onload = function () {
@@ -22,6 +43,13 @@ window.onload = function () {
 
   // 添加筛选器事件监听
   bindFilterEvents();
+  // 设置侧边面板事件
+  setupSidePanelEvents();
+  // 初始化布局模式按钮
+  updateLayoutModeButton();
+  // 初始化弹出模式按钮
+  updatePopupModeButton();
+
 };
 function bindDropZoneEvents() {
   // 添加拖拽上传功能
@@ -65,13 +93,15 @@ function bindFilterEvents() {
 
       if (!rawDataCache) return;
 
-      const filteredData = filterData(rawDataCache, this.dataset.value);
-      const processedData = processData(filteredData);
-      renderCharts(processedData);
+      const filterResult = filterData(rawDataCache, this.dataset.value);
+      const processedData = processData(filterResult.data);
+      // 渲染图表并处理空数据情况
+      renderCharts(processedData, filterResult.isEmpty);
     });
   });
 }
 function filterData(data, filterType) {
+  if (filterType === 'all') return { data: data, isEmpty: false };
   if (filterType === 'all') return data;
 
   const now = new Date();
@@ -111,10 +141,10 @@ function filterData(data, filterType) {
       filteredData = data.slice(-10);
       break;
     default:
-      return data;
+      return { data: data, isEmpty: false };
   }
 
-  return filteredData;
+  return { data: filteredData, isEmpty: filteredData.length === 0 };
 }
 function toggleFullscreen() {
   const textarea = document.getElementById('jsonInput');
@@ -171,7 +201,7 @@ function handleFileSelect(event) {
       rawDataCache = rawData;
 
       const processedData = processData(rawData);
-      renderCharts(processedData);
+      renderCharts(processedData, false);
     } catch (error) {
       showError("文件处理失败: " + error.message);
     }
@@ -198,36 +228,106 @@ function bindChartEvents() {
       dataIndex: params.dataIndex,
     });
   });
+  // 添加双击事件
+  timeChart.on("dblclick", function (params) {
+    console.log('🚀 -> params:', params);
+    if (!autoPopupEnabled) {
+      showSidePanel();
+    }
+  });
+
+  memoryChart.on("dblclick", function (params) {
+    if (!autoPopupEnabled) {
+      showSidePanel();
+    }
+  });
+  // 添加全局点击事件 - 针对整个图表区域
+  document.getElementById('timeChart').addEventListener('dblclick', function (e) {
+    if (!autoPopupEnabled && isTooltipVisible(timeChart)) {
+      showSidePanel();
+    }
+  });
+
+  document.getElementById('memoryChart').addEventListener('dblclick', function (e) {
+    if (!autoPopupEnabled && isTooltipVisible(timeChart)) {
+      showSidePanel();
+    }
+  });
   // 添加鼠标移出事件
   timeChart.on("globalout", hideConfigTip);
   memoryChart.on("globalout", hideConfigTip);
+
+}
+// 添加检测tooltip是否显示的函数
+function isTooltipVisible(chart) {
+  try {
+    // 获取当前tooltip的显示状态
+    return chart.getOption().tooltip[0].show;
+  } catch (e) {
+    return false;
+  }
 }
 function hideConfigTip() {
-  const tipContainer = document.getElementById('hoverConfigTip');
-  tipContainer.classList.remove('active');
-  lastConfig = null;
+  // 设置延迟，避免鼠标在图表和面板之间移动时面板闪烁
+  hoverTimeout = setTimeout(() => {
+    // 只有当鼠标不在侧边面板上时才隐藏
+    if (!isMouseOverSidePanel()) {
+      hideSidePanel();
+    }
+  }, 300);
+}
+// 检查鼠标是否在侧边面板上
+function isMouseOverSidePanel() {
+  const sidePanel = document.getElementById("sideInfoPanel");
+  return sidePanel.matches(':hover');
+}
+
+// 为侧边面板添加鼠标事件
+function setupSidePanelEvents() {
+  const sidePanel = document.getElementById("sideInfoPanel");
+
+  // 鼠标进入面板时取消隐藏计时器
+  sidePanel.addEventListener('mouseenter', () => {
+    clearTimeout(hoverTimeout);
+  });
+
+  // 鼠标离开面板时启动隐藏计时器
+  sidePanel.addEventListener('mouseleave', () => {
+    hideConfigTip();
+  });
 }
 // 布局切换
 function toggleLayout() {
-  const chartContainer = document.getElementById("chartContainer");
-  const mainContainer = document.getElementById("mainContainer");
-  const configTip = document.getElementById("hoverConfigTip");
   isHorizontalLayout = !isHorizontalLayout;
-  chartContainer.className = isHorizontalLayout
-    ? "horizontal-layout"
-    : "vertical-layout";
-  mainContainer.style.maxWidth = isHorizontalLayout ? "100%" : "1400px";
+  updateLayoutDisplay();
 
-  // 移动配置提示到合适的位置
-  if (!isHorizontalLayout) {
-    chartContainer.insertBefore(configTip, chartContainer.firstChild);
-  } else {
-    chartContainer.appendChild(configTip);
-  }
+  // 更新布局模式按钮显示
+  updateLayoutModeButton();
+
   setTimeout(() => {
     timeChart.resize();
     memoryChart.resize();
   }, 300);
+}
+// 更新布局显示
+function updateLayoutDisplay() {
+  const chartContainer = document.getElementById("chartContainer");
+  const mainContainer = document.getElementById("mainContainer");
+
+  chartContainer.className = isHorizontalLayout
+    ? "horizontal-layout"
+    : "vertical-layout";
+  mainContainer.style.maxWidth = isHorizontalLayout ? "100%" : "1400px";
+}
+function updateLayoutModeButton() {
+  const modeSpan = document.querySelector('.layout-mode');
+  if (isHorizontalLayout) {
+    modeSpan.textContent = '横向';
+    modeSpan.className = 'layout-mode horizontal';
+  } else {
+    modeSpan.textContent = '竖向';
+    modeSpan.className = 'layout-mode vertical';
+  }
 }
 // 切换输入模式
 function switchInputMode() {
@@ -289,17 +389,103 @@ function analyzeInputData() {
     rawDataCache = rawData;
 
     const processedData = processData(rawData);
-    renderCharts(processedData);
+    renderCharts(processedData, false);
   } catch (error) {
     showError("数据解析失败: " + error.message);
   }
 }
 // 修改后的图表渲染函数
-function renderCharts(processedData) {
+function renderCharts(processedData, isEmpty = false) {
   const timeOption = createTimeOption(processedData);
   const memoryOption = createMemoryOption(processedData);
+  
+  // 设置图表选项
   timeChart.setOption(timeOption);
   memoryChart.setOption(memoryOption);
+
+  // 如果数据为空，添加无数据图标
+  if (isEmpty) {
+    // 为时间图表添加无数据图标
+    timeChart.setOption({
+      ...timeOption,
+      graphic: [
+        {
+          type: 'group',
+          left: 'center',
+          top: 'middle',
+          children: [
+            {
+              type: 'image',
+              z: 100,
+              style: {
+                image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2NjY2NjYyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIj48L2NpcmNsZT48bGluZSB4MT0iNC45MyIgeTE9IjQuOTMiIHgyPSIxOS4wNyIgeTI9IjE5LjA3Ij48L2xpbmU+PC9zdmc+',
+                width: 80,
+                height: 80,
+                opacity: 0.8
+              }
+            },
+            {
+              type: 'text',
+              z: 100,
+              top: 85,
+              left: 'center',
+              style: {
+                fill: '#999',
+                text: '没有符合条件的数据',
+                font: '14px Microsoft YaHei'
+              }
+            }
+          ]
+        }
+      ]
+    }, true);
+    
+    // 为内存图表添加无数据图标
+    memoryChart.setOption({
+      ...memoryOption,
+      graphic: [
+        {
+          type: 'group',
+          left: 'center',
+          top: 'middle',
+          children: [
+            {
+              type: 'image',
+              z: 100,
+              style: {
+                image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2NjY2NjYyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIj48L2NpcmNsZT48bGluZSB4MT0iNC45MyIgeTE9IjQuOTMiIHgyPSIxOS4wNyIgeTI9IjE5LjA3Ij48L2xpbmU+PC9zdmc+',
+                width: 80,
+                height: 80,
+                opacity: 0.8
+              }
+            },
+            {
+              type: 'text',
+              z: 100,
+              top: 85,
+              left: 'center',
+              style: {
+                fill: '#999',
+                text: '没有符合条件的数据',
+                font: '14px Microsoft YaHei'
+              }
+            }
+          ]
+        }
+      ]
+    }, true);
+  } else {
+    // 如果有数据，清除无数据图标
+    timeChart.setOption({
+      ...timeOption,
+      graphic: []
+    }, true);
+    
+    memoryChart.setOption({
+      ...memoryOption,
+      graphic: []
+    }, true);
+  }
 }
 
 // 添加节流函数
@@ -512,7 +698,7 @@ function createTimeOption(data) {
         },
         lineStyle: {
           type: "dotted",
-          width: 2,
+          width: 3,
         },
         label: {
           show: true,
@@ -572,6 +758,9 @@ function createTimeOption(data) {
     ],
     grid: {
       bottom: "18%",
+      left: '3%',
+      right: "8%",  // 确保右侧有足够空间
+      containLabel: true
     },
     tooltip: {
       trigger: "axis",
@@ -584,6 +773,11 @@ function createTimeOption(data) {
           const timeValue = formatTimeSeconds(p.value);
           tooltipContent += `${p.marker} ${p.seriesName}: ${timeValue}<br>`;
         });
+        // 在手动模式下添加双击提示
+        if (!autoPopupEnabled) {
+          tooltipContent += `<hr style="margin: 5px 0; border-top: 1px dashed #ccc;"/>`;
+          tooltipContent += `<span style="color: #91CC75; font-size: 12px;">双击可弹出详情</span>`;
+        }
         return tooltipContent;
       },
     },
@@ -622,7 +816,7 @@ function createMemoryOption(data) {
     },
     yAxis: {
       type: "value",
-      name: "Heap内存使用 (MB)",
+      name: "Heap内存 (MB)",
     },
     series: [
       {
@@ -768,6 +962,9 @@ function createMemoryOption(data) {
     ],
     grid: {
       bottom: "18%",
+      left: '3%',
+      right: "8%",  // 确保右侧有足够空间
+      containLabel: true
     },
     tooltip: {
       trigger: "axis",
@@ -779,11 +976,129 @@ function createMemoryOption(data) {
         params.forEach((p) => {
           tooltipContent += `${p.marker} ${p.seriesName}: ${p.value}<br>`;
         });
+        // 在手动模式下添加双击提示
+        if (!autoPopupEnabled) {
+          tooltipContent += `<hr style="margin: 5px 0; border-top: 1px dashed #ccc;"/>`;
+          tooltipContent += `<span style="color: #91CC75; font-size: 12px;">双击可弹出详情</span>`;
+        }
         return tooltipContent;
       },
     },
   };
 }
+// 添加创建空图表配置的函数
+// 修改createEmptyChartOption函数，保留坐标轴
+function createEmptyChartOption(title, isTimeChart = true) {
+  // 基本配置
+  const option = {
+    title: {
+      text: title,
+      left: 'center'
+    },
+    // 清空所有系列
+    series: [],
+    // 保留图例但不显示内容
+    legend: {
+      show: true,
+      data: []
+    },
+    // 保留网格
+    grid: {
+      left: '3%',
+      right: '5%',
+      bottom: '18%',
+      top: '20%',
+      containLabel: true
+    },
+    // 清空提示框
+    tooltip: {
+      show: false
+    },
+    grid: {
+      bottom: "18%",
+      left: '3%',
+      right: "8%",  // 确保右侧有足够空间
+      containLabel: true
+    },
+    // 添加无数据图形
+    graphic: [
+      {
+        type: 'group',
+        left: 'center',
+        top: 'middle',
+        position: [0, -20],
+        children: [
+          {
+            type: 'image',
+            z: 0,
+            style: {
+              image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij48cGF0aCBmaWxsPSIjZTBlMGUwIiBkPSJNMTI4IDI0YTEwNCAxMDQgMCAxIDAgMCAyMDggMTA0IDEwNCAwIDAgMCAwLTIwOHptMCAxOTJhODggODggMCAxIDEgMC0xNzYgODggODggMCAwIDEgMCAxNzZ6Ii8+PHBhdGggZmlsbD0iI2UwZTBlMCIgZD0iTTEyOCA4MGE4IDggMCAwIDAgLTggOHY0OGE4IDggMCAwIDAgMTYgMFY4OGE4IDggMCAwIDAgLTggLTh6bTAgODBhOCA4IDAgMSAwIDAgMTYgOCA4IDAgMCAwIDAgLTE2eiIvPjwvc3ZnPg==',
+              width: 100,
+              height: 100,
+              opacity: 0.8
+            }
+          },
+          {
+            type: 'text',
+            z: 1,
+            style: {
+              fill: '#999',
+              text: '暂无数据',
+              font: '16px Microsoft YaHei',
+              fontWeight: 'bold'
+            },
+            left: 'center',
+            top: 75
+          }
+        ]
+      }
+    ]
+  };
+  
+  // 根据图表类型设置不同的坐标轴
+  if (isTimeChart) {
+    // 时间图表的坐标轴
+    option.xAxis = {
+      type: 'category',
+      data: [],
+      axisLabel: {
+        rotate: 45
+      }
+    };
+    option.yAxis = {
+      type: 'value',
+      name: '耗时 (秒)',
+      nameLocation: 'end',
+      nameGap: 10,
+      nameTextStyle: {
+        fontSize: 12,
+        align: 'right'
+      }
+    };
+  } else {
+    // 内存图表的坐标轴
+    option.xAxis = {
+      type: 'category',
+      data: [],
+      axisLabel: {
+        rotate: 45
+      }
+    };
+    option.yAxis = {
+      type: 'value',
+      name: 'Heap内存 (MB)',
+      nameLocation: 'end',
+      nameGap: 10,
+      nameTextStyle: {
+        fontSize: 12,
+        align: 'right'
+      }
+    };
+  }
+  
+  return option;
+}
+
 // 数据预处理（保持原有逻辑）
 function processData(data) {
   const result = {
@@ -905,7 +1220,10 @@ function downloadSampleFile() {
 let lastConfig = null;
 
 function showBuildConfig(time) {
+
+  clearTimeout(hoverTimeout);
   const tipContainer = document.getElementById("hoverConfigTip");
+  const sidePanel = document.getElementById("sideInfoPanel");
 
   if (!rawDataCache) return;
 
@@ -920,9 +1238,12 @@ function showBuildConfig(time) {
     const ngCacheInfo = matchedData.ngCacheInfo || {};
     const deviceInfo = matchedData.deviceInfo || {};
 
+    // 更新面板标题
+    document.querySelector('.panel-title').textContent = `构建详情: ${time}`;
+
     tipContainer.innerHTML = `
         <div class="config-group">
-            <div class="config-subtitle">构建时间: ${time}</div>
+            <div class="config-subtitle">构建配置</div>
             ${renderConfigItemsWithDiff(currentConfig, lastConfig ? lastConfig.config : null)}
         </div>
         ${ngCacheInfo && Object.keys(ngCacheInfo).length > 0 ? `
@@ -938,7 +1259,11 @@ function showBuildConfig(time) {
         </div>
         ` : ''}
       `;
-    tipContainer.classList.add("active");
+
+    // 根据开关状态决定是否自动显示侧边面板
+    if (autoPopupEnabled && !sideInfoPanelVisible) {
+      showSidePanel();
+    }
 
     // 保存上一次的配置以便比较变化
     lastConfig = {
@@ -946,10 +1271,22 @@ function showBuildConfig(time) {
       cache: ngCacheInfo,
       device: deviceInfo
     };
-  } else {
-    tipContainer.classList.remove("active");
   }
 }
+// 显示侧边面板
+function showSidePanel() {
+  const sidePanel = document.getElementById("sideInfoPanel");
+  sidePanel.classList.add('active');
+  sideInfoPanelVisible = true;
+}
+// 隐藏侧边面板
+function hideSidePanel() {
+  const sidePanel = document.getElementById("sideInfoPanel");
+  sidePanel.classList.remove('active');
+  sideInfoPanelVisible = false;
+}
+
+
 function renderConfigItemsWithDiff(currentConfig, lastConfig) {
   if (!currentConfig || Object.keys(currentConfig).length === 0) {
     return '<div class="config-items">无数据</div>';

@@ -408,7 +408,7 @@
     "ngCacheInfo": {
       "enabled": false,
       "environment": "all",
-      "path": "E:\\work\\code\\企税\\groupTaxReport\\.angular\\cache",
+      "path": "E:\\work\\code\\vgr\\.angular\\cache",
       "sizeOnDisk": "1006.24 MB",
       "effectiveStatus": "enabled"
     },
@@ -463,7 +463,7 @@
     "ngCacheInfo": {
       "enabled": true,
       "environment": "all",
-      "path": "E:\\work\\code\\企税\\groupTaxReport\\.angular\\cache",
+      "path": "E:\\work\\code\\vgr\\.angular\\cache",
       "sizeOnDisk": "1006.24 MB",
       "effectiveStatus": "enabled"
     },

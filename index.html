@@ -36,7 +36,14 @@
       </div>
       <div class="toolbar">
         <button class="btn--remix" onclick="downloadSampleFile()">下载示例文件</button>
-        <button class="btn--remix" onclick="toggleLayout()">切换布局</button>
+        <!-- 修改切换布局按钮 -->
+        <button class="btn--remix layout-toggle-btn" id="layoutToggleBtn" onclick="toggleLayout()">
+          布局<span class="layout-mode horizontal">横向</span>
+        </button>
+        <!-- 将开关替换为按钮 -->
+        <button class="btn--remix popup-toggle-btn" id="popupToggleBtn" onclick="togglePopupMode()">
+          弹出详情<span class="popup-mode auto">自动</span>
+        </button>
         <button class="btn--remix analyze-btn" onclick="analyzeInputData()">分析数据</button>
       </div>
       <div class="filter-container" id="filterContainer">
@@ -53,7 +60,15 @@
       <div id="chartContainer" class="horizontal-layout">
         <div id="timeChart" class="chart-container"></div>
         <div id="memoryChart" class="chart-container"></div>
-        <div id="hoverConfigTip" class="hover-config-tip"></div>
+        <!-- <div id="hoverConfigTip" class="hover-config-tip"></div> -->
+      </div>
+      <!-- 添加侧边信息面板 -->
+      <div id="sideInfoPanel" class="side-info-panel">
+        <div class="panel-header">
+          <span class="panel-title">构建详情</span>
+          <button class="panel-close-btn" onclick="hideSidePanel()">×</button>
+        </div>
+        <div id="hoverConfigTip" class="config-content"></div>
       </div>
     </div>
 
