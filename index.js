@@ -398,7 +398,7 @@ function analyzeInputData() {
 function renderCharts(processedData, isEmpty = false) {
   const timeOption = createTimeOption(processedData);
   const memoryOption = createMemoryOption(processedData);
-  
+
   // 设置图表选项
   timeChart.setOption(timeOption);
   memoryChart.setOption(memoryOption);
@@ -439,7 +439,7 @@ function renderCharts(processedData, isEmpty = false) {
         }
       ]
     }, true);
-    
+
     // 为内存图表添加无数据图标
     memoryChart.setOption({
       ...memoryOption,
@@ -480,7 +480,7 @@ function renderCharts(processedData, isEmpty = false) {
       ...timeOption,
       graphic: []
     }, true);
-    
+
     memoryChart.setOption({
       ...memoryOption,
       graphic: []
@@ -1054,7 +1054,7 @@ function createEmptyChartOption(title, isTimeChart = true) {
       }
     ]
   };
-  
+
   // 根据图表类型设置不同的坐标轴
   if (isTimeChart) {
     // 时间图表的坐标轴
@@ -1095,7 +1095,7 @@ function createEmptyChartOption(title, isTimeChart = true) {
       }
     };
   }
-  
+
   return option;
 }
 
@@ -1298,29 +1298,55 @@ function renderConfigItemsWithDiff(currentConfig, lastConfig) {
       falseValues: ['disabled', 'inactive', 'off']
     }
   }
-  return `<div class="config-items">
-      ${Object.entries(currentConfig)
-      .map(([key, value]) => {
-        const changed = lastConfig && JSON.stringify(lastConfig[key]) !== JSON.stringify(value);
-        let valueClass = '';
-        if (typeof value === 'boolean') {
-          valueClass = `config-value-${value}`;
-        } else if (booleanLikeFields[key]) {
-          // 检查是否为类布尔字段
-          const fieldConfig = booleanLikeFields[key];
-          if (fieldConfig.trueValues.includes(value.toString().toLowerCase())) {
-            valueClass = 'config-value-true';
-          } else if (fieldConfig.falseValues.includes(value.toString().toLowerCase())) {
-            valueClass = 'config-value-false';
-          }
-        }
+  let configItems = [];
 
-        return `
-            <span class="config-item ${changed ? "config-changed" : ""}" data-key="${key}">
-              ${key}: <span class="${valueClass}">${value}</span>
-            </span>
-          `;
-      })
-      .join("")}
-    </div>`;
+  // 处理常规配置项
+  Object.entries(currentConfig).forEach(([key, value]) => {
+    if (key !== 'latestWebpackCacheFolders') {
+      const changed = lastConfig && JSON.stringify(lastConfig[key]) !== JSON.stringify(value);
+      let valueClass = '';
+      if (typeof value === 'boolean') {
+        valueClass = `config-value-${value}`;
+      } else if (booleanLikeFields[key]) {
+        // 检查是否为类布尔字段
+        const fieldConfig = booleanLikeFields[key];
+        if (fieldConfig.trueValues.includes(value.toString().toLowerCase())) {
+          valueClass = 'config-value-true';
+        } else if (fieldConfig.falseValues.includes(value.toString().toLowerCase())) {
+          valueClass = 'config-value-false';
+        }
+      }
+      configItems.push(`
+        <span class="config-item ${changed ? "config-changed" : ""}" data-key="${key}">
+          ${key}: <span class="${valueClass}">${value}</span>
+        </span>
+      `);
+    }
+  });
+  // 处理 webpack 缓存文件夹
+  if (currentConfig.latestWebpackCacheFolders) {
+    configItems.push(`
+      <div class="cache-folder-title">
+        angular-webpack 缓存目录（最近两项）
+      </div>
+    `);
+    const folders = currentConfig.latestWebpackCacheFolders;
+    const lastFolders = lastConfig?.latestWebpackCacheFolders || [];
+    folders.forEach((folder, index) => {
+
+      const lastFolder = lastFolders[index];
+      const sizeChanged = lastFolder && lastFolder.size !== folder.size;
+      const timeChanged = lastFolder && lastFolder.mtime !== folder.mtime;
+
+      configItems.push(`
+          <span class="config-item cache-folder-item" data-key="webpack-cache-${index}">
+            <span class="folder-hash">...${folder.name.slice(folder.name.length - 8, folder.name.length)}</span>
+            <span class="folder-size ${sizeChanged ? 'config-changed' : ''}">${folder.size}</span>
+            <span class="folder-time ${timeChanged ? 'config-changed' : ''}">${folder.mtime}</span>
+          </span>
+        `);
+    });
+
+  }
+  return `<div class="config-items">${configItems.join('')}</div>`;
 }

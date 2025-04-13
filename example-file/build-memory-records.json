@@ -410,7 +410,19 @@
       "environment": "all",
       "path": "E:\\work\\code\\vgr\\.angular\\cache",
       "sizeOnDisk": "1006.24 MB",
-      "effectiveStatus": "enabled"
+      "effectiveStatus": "enabled",
+      "latestWebpackCacheFolders": [
+        {
+          "name": "d78d5a8f68dbccf377233fccc91b4fcd6e4dcd0a",
+          "size": "748.73 MB",
+          "mtime": "2025-04-12 23:53:39"
+        },
+        {
+          "name": "7e50ace2873dec6cd5ff138fbe6fb169a922ae06",
+          "size": "1.46 GB",
+          "mtime": "2025-04-11 16:35:53"
+        }
+      ]
     },
     "deviceInfo": {
       "hostname": "DESKTOP-HEK6UKM",
@@ -465,7 +477,19 @@
       "environment": "all",
       "path": "E:\\work\\code\\vgr\\.angular\\cache",
       "sizeOnDisk": "1006.24 MB",
-      "effectiveStatus": "enabled"
+      "effectiveStatus": "enabled",
+      "latestWebpackCacheFolders": [
+        {
+          "name": "d78d5a8f68dbccf377233fccc91b4fcd6e4dcd0a",
+          "size": "778.73 MB",
+          "mtime": "2025-04-12 23:57:39"
+        },
+        {
+          "name": "7e50ace2873dec6cd5ff138fbe6fb169a922ae06",
+          "size": "1.46 GB",
+          "mtime": "2025-04-11 16:35:53"
+        }
+      ]
     },
       "deviceInfo": {
       "hostname": "DESKTOP-HEK6UKM",
